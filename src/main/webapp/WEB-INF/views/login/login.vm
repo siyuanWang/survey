@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/static/assets/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" href="/static/assets/css/matrix-login.css" />
     <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+    </style>
 </head>
 <body>
 <div id="loginbox">
@@ -29,12 +34,12 @@
             </div>
         </div>
         <div class="form-actions">
-            <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Lost password?</a></span>
-            <span class="pull-right"><input id="loginBtn" type="submit" class="btn btn-success" value="Login"/> </span>
+            <!--<span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">忘记密码?</a></span>-->
+            <span class="pull-right"><input id="loginBtn" type="submit" class="btn btn-success" value="登&nbsp;录"/> </span>
         </div>
     </form>
     <form id="recoverform" action="#" class="form-vertical">
-        <p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a password.</p>
+        <p class="normal_text">请输入管理员邮箱</p>
 
         <div class="controls">
             <div class="main_input_box">

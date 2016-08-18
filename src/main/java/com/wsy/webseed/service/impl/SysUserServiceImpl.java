@@ -30,7 +30,7 @@ public class SysUserServiceImpl implements SysUserService{
         param.put("loginName", pin);
         List<SysUserVo> list = sysUserMapper.query(param);
         if(list.size() < 1) {
-            LOGGER.warn("loginName:{} 不存在", list.get(0).getLoginName());
+            LOGGER.warn("loginName:{} 不存在", pin);
             return null;
         } else if(list.size() > 1) {
             LOGGER.warn("loginName:{} 不唯一", list.get(0).getLoginName());

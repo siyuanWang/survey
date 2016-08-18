@@ -46,12 +46,17 @@ $(document).ready(function(){
     }
 
     $("#loginform").ajaxForm({
+        dataType: "json",
         onSuccess: function (data) {
-            console.log(data);
-            location.href = "/index/";
+            var obj = JSON.parse(data);
+            if(obj.resultCode == 1) {
+                location.href = "/index/";
+            } else {
+                alert(obj.resultMsg)
+            }
         },
         onErrors: function (data) {
-            console.log(data);
+            alert(data)
         }
     })
 });
