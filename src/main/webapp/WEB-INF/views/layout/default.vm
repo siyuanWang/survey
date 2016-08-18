@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="/static/assets/css/matrix-media.css" />
     <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/static/assets/css/jquery.gritter.css" />
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+    </style>
 </head>
 <body>
 
@@ -19,19 +24,7 @@
 
 
 <!--main-container-part-->
-<div id="content">
-    <!--breadcrumbs-->
-    <div id="content-header">
-        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-    </div>
-    <!--End-breadcrumbs-->
-
-    <!--Action boxes-->
-    <div class="container-fluid">
-        $screen_content
-    </div>
-</div>
-
+    $screen_content
 <!--end-main-container-part-->
     #parse("layout/footer.vm")
 
@@ -40,24 +33,7 @@
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/jquery.ui.custom.js"></script>
 <script src="/static/assets/js/bootstrap.min.js"></script>
-<script src="/static/assets/js/jquery.flot.min.js"></script>
-<script src="/static/assets/js/jquery.flot.resize.min.js"></script>
-<script src="/static/assets/js/jquery.peity.min.js"></script>
-<script src="/static/assets/js/fullcalendar.min.js"></script>
 <script src="/static/assets/js/matrix.js"></script>
-<script src="/static/assets/js/matrix.dashboard.js"></script>
-<script src="/static/assets/js/jquery.gritter.min.js"></script>
-<script src="/static/assets/js/matrix.interface.js"></script>
-<script src="/static/assets/js/matrix.chat.js"></script>
-<script src="/static/assets/js/jquery.validate.js"></script>
-<script src="/static/assets/js/matrix.form_validation.js"></script>
-<script src="/static/assets/js/jquery.wizard.js"></script>
-<script src="/static/assets/js/jquery.uniform.js"></script>
-<script src="/static/assets/js/select2.min.js"></script>
-<script src="/static/assets/js/matrix.popover.js"></script>
-<script src="/static/assets/js/jquery.dataTables.min.js"></script>
-<script src="/static/assets/js/matrix.tables.js"></script>
-
 <script type="text/javascript">
     // This function is called from the pop-up menus to transfer to
     // a different page. Ignore if the value returned is a null string:

@@ -1,5 +1,7 @@
 package com.wsy.webseed.domain.entity;
 
+import java.util.Date;
+
 /**
  * Created by wangsiyuan1 on 2016/8/15.
  */
@@ -8,6 +10,9 @@ public class SurveyQuestion {
     private String title;
     private Integer mode;
     private String options;
+    private Integer isDel;
+    private Date createTime;
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -39,5 +44,29 @@ public class SurveyQuestion {
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -11,7 +11,7 @@ public interface QuestionMapper extends ISqlMapper {
 
     public int save(SurveyQuestionVo vo);
 
-    public int delete(long id);
+    public int del(long id);
 
     public int update(SurveyQuestionVo vo);
 

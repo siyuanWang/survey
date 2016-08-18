@@ -1,0 +1,48 @@
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        <form action="" class="form-horizontal">
+            <div class="form-actions">
+                <a class="btn btn-primary" href="/question/add">新增试题</a>
+            </div>
+        </form>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                <h5>题库列表</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered data-table">
+                    <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>类型</th>
+                        <th>选项</th>
+                        <th>修改时间</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        #foreach($!vo in $!list)
+                        <tr>
+                            <td>$!vo.title</td>
+                            <td>$!vo.mode</td>
+                            <td>$!vo.options</td>
+                            <td>$!vo.updateTime</td>
+                            <td>$!vo.createTime</td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/assets/js/jquery.uniform.js"></script>
+<script src="/static/assets/js/jquery.dataTables.min.js"></script>
+<script src="/static/assets/js/matrix.tables.js"></script>

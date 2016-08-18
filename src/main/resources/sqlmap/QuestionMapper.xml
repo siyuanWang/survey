@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wsy.webseed.dao.QuestionMapper">
     <insert id="save" parameterType="com.wsy.webseed.domain.SurveyQuestionVo">
-        insert into survey_question (id,title,mode,options) values (#{id},#{title},#{mode},#{options})
+        insert into survey_question (id,title,mode,options,is_del,create_time,update_time)
+        values (#{id},#{title},#{mode},#{options},0,now(),now())
     </insert>
+
+    <update id="del" parameterType="long">
+        update survey_question set is_del = 1 and update_time = now() where id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.wsy.webseed.domain.SurveyQuestionVo">
+        update survey_question set update_time = now()
+        <if test="title != null">,title = #{title}</if>
+        <if test="mode != null">,mode = #{mode}</if>
+        <if test="options != null">,options = #{options}</if>
+        where id = #{id}
+    </update>
+
+    <select id="query" parameterType="map">
+        select id,title,mode,options,is_del isDel,create_time createTime,update_time updateTime
+        from survey_question where 1=1
+        <if test="title != null"> and title like CONCAT('%',#{title},'%')</if>
+        order by update_time
+    </select>
 </mapper>

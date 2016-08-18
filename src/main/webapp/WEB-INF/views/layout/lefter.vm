@@ -3,8 +3,8 @@
     <ul>
         <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>问卷管理</span> <span class="label label-important">2</span></a>
             <ul>
-                <li><a href="form-common.html">题库管理</a></li>
-                <li><a href="form-validation.html">问卷管理</a></li>
+                <li><a href="/question/list">题库管理</a></li>
+                <li><a href="/question/list">问卷管理</a></li>
             </ul>
         </li>
         <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>统计分析</span></a></li>
