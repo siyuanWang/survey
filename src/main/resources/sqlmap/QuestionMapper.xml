@@ -18,7 +18,7 @@
         where id = #{id}
     </update>
 
-    <select id="query" parameterType="map">
+    <select id="query" parameterType="map" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
         select id,title,mode,options,is_del isDel,create_time createTime,update_time updateTime
         from survey_question where 1=1
         <if test="title != null"> and title like CONCAT('%',#{title},'%')</if>
