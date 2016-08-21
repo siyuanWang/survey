@@ -13,7 +13,7 @@
                     <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
                         <h5>新增试题</h5>
                     </div>
-                    <div class="widget-content nopadding">
+                    <div id="questionContainer" class="widget-content">
                         <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
                             <div class="control-group">
                                 <label class="control-label">题干</label>
@@ -31,10 +31,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label">选项</label>
-                                <div class="controls">
-                                    <input type="text" name="date" id="date">
+                            <div id="options">
+                                <div class="control-group option">
+                                    <label class="control-label">选项1</label>
+                                    <div class="controls">
+                                        <input type="text" name="option">
+                                        &nbsp;&nbsp;
+                                        <a class="btn btn-default" data-operator="plus">
+                                            <i class="icon-plus" data-operator="plus"></i>
+                                        </a>
+                                        &nbsp;&nbsp;
+                                        <a class="btn btn-default" data-operator="reduce">
+                                            <i class="icon-minus" data-operator="reduce"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-actions">
@@ -47,8 +57,7 @@
         </div>
     </div>
 </div>
-<script src="js/jquery.uniform.js"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/jquery.validate.js"></script>
-<script src="js/matrix.js"></script>
-<script src="js/matrix.form_validation.js"></script>
+<script type="text/javascript">
+    require(['scripts/questionAdd'], function () {
+    });
+</script>
