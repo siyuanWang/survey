@@ -43,6 +43,7 @@
         </div>
     </div>
 </div>
-<script src="/static/assets/js/jquery.uniform.js"></script>
-<script src="/static/assets/js/jquery.dataTables.min.js"></script>
-<script src="/static/assets/js/matrix.tables.js"></script>
+<script type="text/javascript">
+    require(['scripts/questionList'], function () {
+    });
+</script>

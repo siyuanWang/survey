@@ -14,17 +14,17 @@
                         <h5>新增试题</h5>
                     </div>
                     <div id="questionContainer" class="widget-content">
-                        <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <form class="form-horizontal">
                             <div class="control-group">
                                 <label class="control-label">题干</label>
                                 <div class="controls">
-                                    <input type="text" name="required" id="required">
+                                    <input type="text" id="title">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">试题类型</label>
                                 <div class="controls">
-                                    <select name="mode" id="">
+                                    <select name="mode" id="mode">
                                         <option value="1">单选</option>
                                         <option value="2">多选</option>
                                         <option value="3">问答</option>
@@ -47,10 +47,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-actions">
-                                <input type="submit" value="保存" class="btn btn-success">
-                            </div>
+
                         </form>
+                        <div class="form-actions">
+                            <button id="saveBtn" class="btn btn-success">保存</button>
+                        </div>
                     </div>
                 </div>
             </div>
