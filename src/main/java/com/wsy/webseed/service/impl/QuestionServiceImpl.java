@@ -35,7 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
     public void updQuestion(SurveyQuestionVo question) {
         int count = questionMapper.update(question);
         if(count != 1) {
-            throw new BussinessException("保存count不等于1");
+            throw new BussinessException("修改count不等于1");
         }
     }
 

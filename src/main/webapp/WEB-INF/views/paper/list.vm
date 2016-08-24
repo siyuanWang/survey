@@ -3,11 +3,11 @@
     <div id="content-header">
         <div id="breadcrumb">
             <a href="/index/" title="首页" class="tip-bottom"><i class="icon-home"></i>首页</a>
-            <a href="/question/list" title="题库管理" class="tip-bottom"><i class="icon-home"></i>题库管理</a>
+            <a href="/question/list" title="问卷管理" class="tip-bottom"><i class="icon-home"></i>问卷管理</a>
         </div>
         <form action="" class="form-horizontal">
             <div class="form-actions">
-                <a class="btn btn-primary" href="/question/add">新增试题</a>
+                <a class="btn btn-primary" href="/question/add">新增问卷</a>
             </div>
         </form>
     </div>
@@ -17,46 +17,43 @@
     <div class="container-fluid">
         <div class="widget-box">
             <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                <h5>题库列表</h5>
+                <h5>问卷列表</h5>
             </div>
             <div class="widget-content nopadding">
                 <table class="table table-bordered data-table">
                     <thead>
                     <tr>
                         <th>标题</th>
-                        <th>类型</th>
-                        <th>选项</th>
-                        <th>修改时间</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>是否发布</th>
                         <th>创建时间</th>
+                        <th>更新时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
-                    <tbody id="questionTbody">
+                    <tbody id="paperTbody">
                         #foreach($!vo in $!list)
                         <tr>
                             <td>$!vo.title</td>
                             <td>
-                                #if($!vo.mode == 1)
-                                    单选题
-                                #elseif($!vo.mode == 2)
-                                    多选题
-                                #else
-                                    问答题
-                                #end
-
+                                $!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.startTime)
                             </td>
                             <td>
-                                #if($!vo.mode == 3)
-                                    --
-                                #else
-                                    $!vo.options
-                                #end
-
+                                $!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.endTime)
                             </td>
-                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
+                            <td>
+                                #if($!vo.isPublish == 1)
+                                    <span style="color:green">已发布</span>
+                                #else
+                                    <span style="color:red">未发布</span>
+                                #end
+                            </td>
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.createTime)</td>
+                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
                             <td>
                                 <a href="javascript:void(0)" class="upd" data-id="$!vo.id">修改</a>
+                                <a href="javascript:void(0)" class="publish" data-id="$!vo.id">发布</a>
                                 <a href="javascript:void(0)" class="del" data-id="$!vo.id">删除</a>
                             </td>
                         </tr>
@@ -68,6 +65,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/question/questionList','scripts/dataTable'], function () {
+    require(['scripts/dataTable'], function () {
     });
 </script>
