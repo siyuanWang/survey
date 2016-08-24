@@ -1,7 +1,10 @@
 <div id="content">
     <!--breadcrumbs-->
     <div id="content-header">
-        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        <div id="breadcrumb">
+            <a href="/index/" title="首页" class="tip-bottom"><i class="icon-home"></i>首页</a>
+            <a href="/question/list" title="问卷管理" class="tip-bottom"><i class="icon-home"></i>问卷管理</a>
+        </div>
         <form action="" class="form-horizontal">
             <div class="form-actions">
                 <a class="btn btn-primary" href="/question/add">新增试题</a>
@@ -25,16 +28,37 @@
                         <th>选项</th>
                         <th>修改时间</th>
                         <th>创建时间</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="questionTbody">
                         #foreach($!vo in $!list)
                         <tr>
                             <td>$!vo.title</td>
-                            <td>$!vo.mode</td>
-                            <td>$!vo.options</td>
-                            <td>$!vo.updateTime</td>
-                            <td>$!vo.createTime</td>
+                            <td>
+                                #if($!vo.mode == 1)
+                                    单选题
+                                #elseif($!vo.mode == 2)
+                                    多选题
+                                #else
+                                    问答题
+                                #end
+
+                            </td>
+                            <td>
+                                #if($!vo.mode == 3)
+                                    --
+                                #else
+                                    $!vo.options
+                                #end
+
+                            </td>
+                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
+                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.createTime)</td>
+                            <td>
+                                <a href="javascript:void(0)" class="upd" data-id="$!vo.id">修改</a>
+                                <a href="javascript:void(0)" class="del" data-id="$!vo.id">删除</a>
+                            </td>
                         </tr>
                         #end
                     </tbody>

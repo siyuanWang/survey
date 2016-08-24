@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/static/assets/css/matrix-media.css" />
     <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/static/assets/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="/static/assets/css/select2.css" />
     <style>
         body {
             font-family: '微软雅黑';

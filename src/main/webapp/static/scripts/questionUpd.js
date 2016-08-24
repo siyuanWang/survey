@@ -50,24 +50,31 @@ define(['jquery'], function ($) {
         }
     }
 
-    $("#saveBtn").click(function() {
+    /**
+     * 修改试题
+     */
+    $("#updBtn").click(function() {
         var title = $("#title").val();
         var mode = $("#mode").val();
         var options = [];
+        var id = $("#questionId").val();
         $optionsDiv.find(".option").each(function(index) {
             var $this = $(this);
             options.push($this.find("input").val());
         });
 
         var questionObj = {
+            id: id,
             title: title,
             mode: mode,
             options: JSON.stringify(options)
         };
-        saveQuestionAjax(questionObj, function(data) {
+        updQuestionAjax(questionObj, function(data) {
             if(data.resultCode == 1) {
-                alert('保存成功')
+                alert(data.result)
                 location.href = "/question/list"
+            } else {
+                alert(data.result)
             }
         })
     });
@@ -77,11 +84,28 @@ define(['jquery'], function ($) {
      * @param questionObj 对象
      * @param callback 回调
      */
-    function saveQuestionAjax(questionObj, callback) {
+    function updQuestionAjax(questionObj, callback) {
         $.ajax({
             type: "post",
-            url:"/question/save",
+            url:"/question/upd",
             data:questionObj,
+            dataType: "json",
+            success: function(data) {
+                callback(data);
+            }
+        })
+    }
+
+    /**
+     * 按主键查询问题
+     * @param id
+     * @param callback
+     */
+    function queryQuestionById(id, callback) {
+        $.ajax({
+            type: "get",
+            url:"/question/"+id,
+            data:{},
             dataType: "json",
             success: function(data) {
                 callback(data);
@@ -97,6 +121,32 @@ define(['jquery'], function ($) {
             $this.find(".controls").find("a").remove();
         });
         $options.last().find(".controls").append($plus).append("&nbsp;&nbsp;").append($reduce);
+    }
+
+    var questionId = $("#questionId").val();
+    if(questionId) {
+        queryQuestionById(questionId, function(data) {
+            if(data.resultCode == 1) {
+                console.log("merge data:"+data.result);
+                $(".option").remove();
+                var obj = JSON.parse(data.result);
+                mergeQuestionData(obj);
+            }
+        })
+    }
+    /**
+     * 初始化修改的表单数据
+     * @param questionObj
+     */
+    function mergeQuestionData(questionObj) {
+        if(questionObj) {
+            $("#title").val(questionObj.title);
+            $("#mode").val(questionObj.mode);
+            var options = JSON.parse(questionObj.options)
+            $.each(options, function(index, data) {
+                addOption(data);
+            })
+        }
     }
 
     /**

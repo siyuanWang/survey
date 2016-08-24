@@ -11,6 +11,10 @@ import java.util.Map;
 public interface QuestionService {
     public void saveQuestion(SurveyQuestionVo question);
 
+    public void updQuestion(SurveyQuestionVo question);
+
     public List<SurveyQuestionVo> query(Map<String, Object> param);
+
+    public SurveyQuestionVo queryById(Long id);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,29 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
+    @Transactional
+    public void updQuestion(SurveyQuestionVo question) {
+        int count = questionMapper.update(question);
+        if(count != 1) {
+            throw new BussinessException("保存count不等于1");
+        }
+    }
+
+    @Override
     public List<SurveyQuestionVo> query(Map<String, Object> param) {
         return questionMapper.query(param);
     }
+
+    @Override
+    public SurveyQuestionVo queryById(Long id) {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("id", id);
+        param.put("isDel", SurveyQuestionVo.IS_NOT_DEL);
+        List<SurveyQuestionVo> list = questionMapper.query(param);
+        if(list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
+
 }
