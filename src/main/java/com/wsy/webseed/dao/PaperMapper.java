@@ -17,4 +17,6 @@ public interface PaperMapper extends ISqlMapper {
     public List<SurveyPaperVo> query(Map<String, Object> param);
 
     public SurveyPaperVo queryById(Long id);
+
+    public List<SurveyQuestionVo> queryByPaperId(Long paperId);
 }

@@ -11,43 +11,29 @@
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                        <h5>修改试题</h5>
+                        <h5>修改问卷</h5>
                     </div>
                     <div id="questionContainer" class="widget-content">
                         <form class="form-horizontal">
                             <div class="control-group">
-                                <label class="control-label">题干</label>
+                                <label class="control-label">标题</label>
                                 <div class="controls">
-                                    <input type="text" id="title">
+                                    <input type="text" id="title" value="$!vo.title">
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">试题类型</label>
+                                <label class="control-label">开始时间</label>
                                 <div class="controls">
-                                    <select name="mode" id="mode">
-                                        <option value="1">单选</option>
-                                        <option value="2">多选</option>
-                                        <option value="3">问答</option>
-                                    </select>
+                                    <input type="text" id="startTime" name="startTime" value="$!dateTool.format('yyyy-MM-dd',$!vo.startTime)">
                                 </div>
                             </div>
-                            <div id="options">
-                                <div class="control-group option">
-                                    <label class="control-label">选项1</label>
-                                    <div class="controls">
-                                        <input type="text" name="option">
-                                        &nbsp;&nbsp;
-                                        <a class="btn btn-default" data-operator="plus">
-                                            <i class="icon-plus" data-operator="plus"></i>
-                                        </a>
-                                        &nbsp;&nbsp;
-                                        <a class="btn btn-default" data-operator="reduce">
-                                            <i class="icon-minus" data-operator="reduce"></i>
-                                        </a>
-                                    </div>
+                            <div class="control-group">
+                                <label class="control-label">结束时间</label>
+                                <div class="controls">
+                                    <input type="text" id="endTime" value="$!dateTool.format('yyyy-MM-dd',$!vo.endTime)">
                                 </div>
                             </div>
-                            <input type="hidden" id="questionId" value="$!questionId"/>
+                            <input type="hidden" id="paperId" value="$!vo.id"/>
                         </form>
                         <div class="form-actions">
                             <button id="updBtn" class="btn btn-success">修改</button>
@@ -59,6 +45,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/paper/questionUpd'], function () {
+    require(['scripts/paper/paperUpd'], function () {
     });
 </script>

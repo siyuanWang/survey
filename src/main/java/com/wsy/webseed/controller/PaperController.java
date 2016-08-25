@@ -57,8 +57,16 @@ public class PaperController {
 
     @RequestMapping(value = "/upd/{id}", method = RequestMethod.GET)
     public String toUpdPage(@PathVariable Long id, Model model) {
-
+        SurveyPaperVo vo = new SurveyPaperVo();
+        try {
+            vo = paperService.queryById(id);
+        } catch (BussinessException e) {
+            LOGGER.error("查询问卷失败: {}", e);
+        } catch (Exception e) {
+            LOGGER.error("查询问卷服务不可用: {}", e);
+        }
         model.addAttribute("paperId", id);
+        model.addAttribute("vo", vo);
         return "paper/upd";
     }
 
@@ -76,6 +84,42 @@ public class PaperController {
         } catch (Exception e) {
             LOGGER.error("新增问题服务不可用: {}", e);
             result = Operation.result(Operation.failCode, "修改问卷服务不可用");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String del(HttpServletRequest request, @PathVariable Long id) {
+
+        String result = "";
+        try {
+            paperService.del(id);
+            result = Operation.result(Operation.successCode, "删除问卷成功");
+        } catch (BussinessException e) {
+            LOGGER.error("新增问题失败: {}", e);
+            result = Operation.result(Operation.failCode, "删除问卷失败");
+        } catch (Exception e) {
+            LOGGER.error("新增问题服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "删除问卷服务不可用");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/publish/{id}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String publish(HttpServletRequest request, @PathVariable Long id) {
+
+        String result = "";
+        try {
+            paperService.publish(id);
+            result = Operation.result(Operation.successCode, "发布问卷成功");
+        } catch (BussinessException e) {
+            LOGGER.error("新增问题失败: {}", e);
+            result = Operation.result(Operation.failCode, "发布问卷失败");
+        } catch (Exception e) {
+            LOGGER.error("新增问题服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "发布问卷服务不可用");
         }
         return result;
     }
@@ -98,6 +142,8 @@ public class PaperController {
 
         model.addAttribute("list", vos);
         model.addAttribute("title", title);
+        model.addAttribute("configMap",SurveyPaperVo.configMap);
+        model.addAttribute("publishMap",SurveyPaperVo.publishMap);
 
         return "paper/list";
     }

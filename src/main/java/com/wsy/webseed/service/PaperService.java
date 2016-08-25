@@ -1,6 +1,7 @@
 package com.wsy.webseed.service;
 
 import com.wsy.webseed.domain.SurveyPaperVo;
+import com.wsy.webseed.domain.SurveyQuestionVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,5 +17,11 @@ public interface PaperService {
     public List<SurveyPaperVo> query(Map<String, Object> param);
 
     public SurveyPaperVo queryById(Long id);
+
+    public void del(Long id);
+
+    public void publish(Long id);
+
+    public List<SurveyQuestionVo> queryByPaperId(Long paperId);
 
 }

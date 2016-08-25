@@ -15,6 +15,7 @@ public class SurveyPaper {
     @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date endTime;
     private Integer isPublish;
+    private Integer isDel;
     private Date createTime;
     private Date updateTime;
 
@@ -72,5 +73,13 @@ public class SurveyPaper {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 }
