@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS `survey_paper` (
   `is_publish` tinyint(3) unsigned NOT NULL COMMENT '是否发布 0未发布 1已发布',
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
+  `is_del` tinyint(4) NOT NULL COMMENT '0未删除 1已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='调查问卷表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='调查问卷表';
 
 -- 数据导出被取消选择。
 -- 导出  表 wen_juan.survey_paper_question 结构
