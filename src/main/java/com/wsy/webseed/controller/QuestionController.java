@@ -79,6 +79,23 @@ public class QuestionController {
         return result;
     }
 
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String del(HttpServletRequest request, @PathVariable Long id) {
+        String result = "";
+        try {
+            questionService.del(id);
+            result = Operation.result(Operation.successCode, "删除问题成功");
+        } catch (BussinessException e) {
+            LOGGER.error("新增问题失败: {}", e);
+            result = Operation.result(Operation.failCode, "删除问题失败");
+        } catch (Exception e) {
+            LOGGER.error("新增问题服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "删除问题服务不可用");
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String query(String title, Model model) {
         Map<String, Object> param = new HashMap<String, Object>();

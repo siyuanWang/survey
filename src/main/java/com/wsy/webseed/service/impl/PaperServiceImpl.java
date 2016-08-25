@@ -23,6 +23,7 @@ public class PaperServiceImpl implements PaperService {
     @Override
     @Transactional
     public void savePaper(SurveyPaperVo paper) {
+        paper.setIsPublish(SurveyPaperVo.IS_PUBLISH);
         int count = paperMapper.save(paper);
         if (count != 1) {
             throw new BussinessException("insert survey_paper count不等于1");

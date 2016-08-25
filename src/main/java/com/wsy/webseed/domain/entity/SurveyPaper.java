@@ -1,5 +1,7 @@
 package com.wsy.webseed.domain.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -8,7 +10,9 @@ import java.util.Date;
 public class SurveyPaper {
     private Long id;
     private String title;
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date startTime;
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     private Date endTime;
     private Integer isPublish;
     private Date createTime;

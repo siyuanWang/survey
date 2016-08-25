@@ -11,7 +11,7 @@
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                        <h5>新增试题</h5>
+                        <h5>新增问卷</h5>
                     </div>
                     <div id="questionContainer" class="widget-content">
                         <form class="form-horizontal">
@@ -30,7 +30,7 @@
                             <div class="control-group">
                                 <label class="control-label">结束时间</label>
                                 <div class="controls">
-                                    <input type="text" id="startTime" name="endTime">
+                                    <input type="text" id="endTime" name="endTime">
                                 </div>
                             </div>
                         </form>
@@ -44,6 +44,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/paper/questionAdd'], function () {
+    require(['scripts/paper/paperAdd'], function () {
     });
 </script>

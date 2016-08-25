@@ -17,4 +17,6 @@ public interface QuestionService {
 
     public SurveyQuestionVo queryById(Long id);
 
+    public void del(Long id);
+
 }

@@ -10,6 +10,7 @@ requirejs.config({
         'datatable': '/static/assets/js/jquery.dataTables.min',
         'jquery-uniform': '/static/assets/js/jquery.uniform',
         'select2': '/static/assets/js/select2.min',
+        'response-common': '/static/scripts/common/response-common'
     },
     shim:{
         'jquery': {
@@ -42,7 +43,8 @@ require(
 	 	'jquery',
         'jquery-ui',
         'bootstrap-js',
-        'matrix'
+        'matrix',
+        'response-common'
     ],
     function() {
 

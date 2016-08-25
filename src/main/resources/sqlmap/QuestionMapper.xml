@@ -15,6 +15,7 @@
         <if test="title != null">,title = #{title}</if>
         <if test="mode != null">,mode = #{mode}</if>
         <if test="options != null">,options = #{options}</if>
+        <if test="isDel != null">,is_del = #{isDel}</if>
         where id = #{id}
     </update>
 
@@ -23,7 +24,7 @@
         from survey_question where 1=1
         <if test="title != null"> and title like CONCAT('%',#{title},'%')</if>
         <if test="id != null"> and id = #{id}</if>
-        <if test="is_del != null"> and is_del = #{idDel}</if>
+        <if test="idDel != null"> and is_del = #{idDel}</if>
         order by update_time
     </select>
 </mapper>

@@ -3,11 +3,11 @@
     <div id="content-header">
         <div id="breadcrumb">
             <a href="/index/" title="首页" class="tip-bottom"><i class="icon-home"></i>首页</a>
-            <a href="/question/list" title="问卷管理" class="tip-bottom"><i class="icon-home"></i>问卷管理</a>
+            <a href="/paper/list" title="问卷管理" class="tip-bottom"><i class="icon-home"></i>问卷管理</a>
         </div>
         <form action="" class="form-horizontal">
             <div class="form-actions">
-                <a class="btn btn-primary" href="/question/add">新增问卷</a>
+                <a class="btn btn-primary" href="/paper/add">新增问卷</a>
             </div>
         </form>
     </div>
@@ -37,10 +37,10 @@
                         <tr>
                             <td>$!vo.title</td>
                             <td>
-                                $!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.startTime)
+                                $!dateTool.format('yyyy-MM-dd',$!vo.startTime)
                             </td>
                             <td>
-                                $!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.endTime)
+                                $!dateTool.format('yyyy-MM-dd',$!vo.endTime)
                             </td>
                             <td>
                                 #if($!vo.isPublish == 1)
@@ -65,6 +65,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/dataTable'], function () {
+    require(['scripts/common/dataTable'], function () {
     });
 </script>

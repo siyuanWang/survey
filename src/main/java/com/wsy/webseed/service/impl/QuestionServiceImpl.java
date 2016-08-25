@@ -41,6 +41,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public List<SurveyQuestionVo> query(Map<String, Object> param) {
+        param.put("idDel", SurveyQuestionVo.IS_NOT_DEL);
         return questionMapper.query(param);
     }
 
@@ -54,6 +55,18 @@ public class QuestionServiceImpl implements QuestionService{
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void del(Long id) {
+        SurveyQuestionVo vo = new SurveyQuestionVo();
+        vo.setId(id);
+        vo.setIsDel(SurveyQuestionVo.IS_DEL);
+        int count = questionMapper.update(vo);
+        if(count != 1) {
+            throw new BussinessException("修改count不等于1");
+        }
     }
 
 }
