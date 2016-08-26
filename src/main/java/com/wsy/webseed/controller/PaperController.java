@@ -6,6 +6,7 @@ import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.domain.SurveyPaperVo;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.service.PaperService;
+import com.wsy.webseed.service.QuestionService;
 import com.wsy.webseed.util.Operation;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -31,6 +32,9 @@ public class PaperController {
 
     @Autowired
     PaperService paperService;
+
+    @Autowired
+    QuestionService questionService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
@@ -69,6 +73,26 @@ public class PaperController {
         model.addAttribute("vo", vo);
         return "paper/upd";
     }
+
+    @RequestMapping(value = "/config/{id}", method = RequestMethod.GET)
+    public String toConfigPage(@PathVariable Long id, Model model) {
+        SurveyPaperVo vo = new SurveyPaperVo();
+        List<SurveyQuestionVo> questions = new ArrayList<SurveyQuestionVo>();
+        try {
+            vo = paperService.queryById(id);
+            questions = questionService.query(new HashMap<String, Object>());
+        } catch (BussinessException e) {
+            LOGGER.error("查询问卷失败: {}", e);
+        } catch (Exception e) {
+            LOGGER.error("查询问卷服务不可用: {}", e);
+        }
+        model.addAttribute("paperId", id);
+        model.addAttribute("questions", questions);
+        model.addAttribute("vo", vo);
+        return "paper/config";
+    }
+
+
 
     @RequestMapping(value = "/upd", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody

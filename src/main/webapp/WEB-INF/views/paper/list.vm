@@ -53,7 +53,7 @@
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
                             <td>
 
-                                <a href="javascript:void(0)" class="upd" href="/paper/config/$!vo.id" style="color:green;font-weight: bold">配置试卷</a>
+                                <a href="/paper/config/$!vo.id" style="color:green;font-weight: bold">配置试卷</a>
                                 <a href="javascript:void(0)" class="upd" data-id="$!vo.id">修改</a>
                                 <a href="javascript:void(0)" class="publish" data-id="$!vo.id">发布</a>
                                 <a href="javascript:void(0)" class="del" data-id="$!vo.id">删除</a>
