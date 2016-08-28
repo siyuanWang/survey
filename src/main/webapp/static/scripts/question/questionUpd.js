@@ -66,7 +66,7 @@ define(['jquery', 'response-common'], function ($, rc) {
         var questionObj = {
             id: id,
             title: title,
-            mode: mode,
+            modeType: mode,
             options: JSON.stringify(options)
         };
         updQuestionAjax(questionObj, function (data) {
@@ -138,7 +138,7 @@ define(['jquery', 'response-common'], function ($, rc) {
     function mergeQuestionData(questionObj) {
         if (questionObj) {
             $("#title").val(questionObj.title);
-            $("#mode").val(questionObj.mode);
+            $("#mode").val(questionObj.modeType);
             var options = JSON.parse(questionObj.options)
             $.each(options, function (index, data) {
                 addOption(data);

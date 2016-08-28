@@ -36,9 +36,9 @@
                         <tr>
                             <td>$!vo.title</td>
                             <td>
-                                #if($!vo.mode == 1)
+                                #if($!vo.modeType == 1)
                                     单选题
-                                #elseif($!vo.mode == 2)
+                                #elseif($!vo.modeType == 2)
                                     多选题
                                 #else
                                     问答题
@@ -46,7 +46,7 @@
 
                             </td>
                             <td>
-                                #if($!vo.mode == 3)
+                                #if($!vo.modeType == 3)
                                     --
                                 #else
                                     $!vo.options

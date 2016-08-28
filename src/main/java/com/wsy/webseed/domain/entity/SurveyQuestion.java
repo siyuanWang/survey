@@ -8,7 +8,7 @@ import java.util.Date;
 public class SurveyQuestion {
     private Long id;
     private String title;
-    private Integer mode;
+    private Integer modeType;
     private String options;
     private Integer isDel;
     private Date createTime;
@@ -30,12 +30,12 @@ public class SurveyQuestion {
         this.title = title;
     }
 
-    public Integer getMode() {
-        return mode;
+    public Integer getModeType() {
+        return modeType;
     }
 
-    public void setMode(Integer mode) {
-        this.mode = mode;
+    public void setModeType(Integer modeType) {
+        this.modeType = modeType;
     }
 
     public String getOptions() {

@@ -24,7 +24,7 @@
                             <div class="control-group">
                                 <label class="control-label">试题类型</label>
                                 <div class="controls">
-                                    <select name="mode" id="mode">
+                                    <select name="modeType" id="mode">
                                         <option value="1">单选</option>
                                         <option value="2">多选</option>
                                         <option value="3">问答</option>

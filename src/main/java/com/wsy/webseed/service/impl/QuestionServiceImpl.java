@@ -2,6 +2,7 @@ package com.wsy.webseed.service.impl;
 
 import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.dao.QuestionMapper;
+import com.wsy.webseed.dao.base.BaseMapper;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,13 @@ public class QuestionServiceImpl implements QuestionService{
     @Autowired
     QuestionMapper questionMapper;
 
+    @Autowired
+    BaseMapper baseMapper;
+
     @Override
     @Transactional
     public void saveQuestion(SurveyQuestionVo surveyQuestion) {
+        surveyQuestion.setId(baseMapper.getSeqSurveyPk());
         int count = questionMapper.save(surveyQuestion);
         if(count != 1) {
             throw new BussinessException("保存count不等于1");

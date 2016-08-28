@@ -61,7 +61,7 @@ define(['jquery', 'response-common'], function ($, rc) {
 
         var questionObj = {
             title: title,
-            mode: mode,
+            modeType: mode,
             options: JSON.stringify(options)
         };
         saveQuestionAjax(questionObj, function (data) {

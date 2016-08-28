@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsy.webseed.dao.PaperMapper">
+    <insert id="save" parameterType="com.wsy.webseed.domain.SurveyPaperVo">
+        insert into survey_paper (title,start_time,end_time,is_publish,create_time,update_time)
+        values (#{title},#{startTime},#{endTime},#{isPublish},now(),now())
+    </insert>
+    <update id="update" parameterType="com.wsy.webseed.domain.SurveyPaperVo">
+        update survey_paper set update_time = now()
+        <if test="title != null">,title = #{title}</if>
+        <if test="startTime != null">,start_time = #{startTime}</if>
+        <if test="endTime != null">,end_time = #{endTime}</if>
+        <if test="isPublish != null">,is_publish = #{isPublish}</if>
+        <if test="isDel != null">,is_del = #{isDel}</if>
+        where id = #{id}
+    </update>
+    <select id="query" resultType="com.wsy.webseed.domain.SurveyPaperVo" parameterType="map">
+        select id,title,start_time startTime,end_time endTime,is_publish isPublish,
+        create_time createTime,update_time updateTime
+        from survey_paper where 1=1
+        <if test="title != null">and title = #{title}</if>
+        <if test="isPublish != null">and is_publish = #{isPublish}</if>
+        <if test="isDel != null">and is_del = #{isDel}</if>
+    </select>
+
+    <select id="queryById" resultType="com.wsy.webseed.domain.SurveyPaperVo" parameterType="long">
+        select id,title,start_time startTime,end_time endTime,is_publish isPublish,
+        create_time createTime,update_time updateTime
+        from survey_paper where id = #{id}
+    </select>
+
+    <select id="queryByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
+        select q.id,q.title,q.mode,q.options,q.is_del isDel,q.create_time createTime,q.update_time updateTime
+        from survey_paper_question r,survey_question q where r.question_id = q.id and r.paper_id = #{paperId};
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsy.webseed.dao.QuestionMapper">
+    <insert id="save" parameterType="com.wsy.webseed.domain.SurveyQuestionVo">
+        insert into survey_question (id,title,mode_type,options,is_del,create_time,update_time)
+        values (#{id},#{title},#{modeType},#{options},0,sysdate,sysdate)
+    </insert>
+
+    <update id="del" parameterType="long">
+        update survey_question set is_del = 1 and update_time = now() where id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.wsy.webseed.domain.SurveyQuestionVo">
+        update survey_question set update_time = sysdate
+        <if test="title != null">,title = #{title}</if>
+        <if test="modeType != null">,mode_type = #{modeType}</if>
+        <if test="options != null">,options = #{options}</if>
+        <if test="isDel != null">,is_del = #{isDel}</if>
+        where id = #{id}
+    </update>
+
+    <select id="query" parameterType="map" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
+        select id,title,mode_type modeType,options,is_del isDel,create_time createTime,update_time updateTime
+        from survey_question where 1=1
+        <if test="title != null"> and title like CONCAT('%',#{title},'%')</if>
+        <if test="id != null"> and id = #{id}</if>
+        <if test="idDel != null"> and is_del = #{idDel}</if>
+        order by update_time
+    </select>
+</mapper>
