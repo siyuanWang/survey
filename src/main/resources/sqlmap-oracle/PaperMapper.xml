@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wsy.webseed.dao.PaperMapper">
     <insert id="save" parameterType="com.wsy.webseed.domain.SurveyPaperVo">
-        insert into survey_paper (title,start_time,end_time,is_publish,create_time,update_time)
-        values (#{title},#{startTime},#{endTime},#{isPublish},now(),now())
+        insert into survey_paper (id,title,start_time,end_time,is_publish,create_time,update_time,is_del)
+        values (#{id},#{title},#{startTime},#{endTime},#{isPublish},sysdate,sysdate,#{isDel})
     </insert>
     <update id="update" parameterType="com.wsy.webseed.domain.SurveyPaperVo">
-        update survey_paper set update_time = now()
+        update survey_paper set update_time = sysdate
         <if test="title != null">,title = #{title}</if>
         <if test="startTime != null">,start_time = #{startTime}</if>
         <if test="endTime != null">,end_time = #{endTime}</if>
@@ -30,7 +30,7 @@
     </select>
 
     <select id="queryByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
-        select q.id,q.title,q.mode,q.options,q.is_del isDel,q.create_time createTime,q.update_time updateTime
-        from survey_paper_question r,survey_question q where r.question_id = q.id and r.paper_id = #{paperId};
+        select q.id,q.title,q.mode_type modeType,q.options,q.is_del isDel,q.create_time createTime,q.update_time updateTime
+        from survey_paper_question r,survey_question q where r.question_id = q.id and r.paper_id = #{paperId}
     </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.wsy.webseed.service.impl;
 
 import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.dao.PaperMapper;
+import com.wsy.webseed.dao.base.BaseMapper;
 import com.wsy.webseed.domain.SurveyPaperVo;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.service.PaperService;
@@ -22,10 +23,16 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     PaperMapper paperMapper;
 
+
+    @Autowired
+    BaseMapper baseMapper;
+
     @Override
     @Transactional
     public void savePaper(SurveyPaperVo paper) {
         paper.setIsPublish(SurveyPaperVo.IS_NOT_PUBLISH);
+        paper.setId(baseMapper.getSeqSurveyPk());
+        paper.setIsDel(SurveyPaperVo.IS_NOT_DEL);
         int count = paperMapper.save(paper);
         if (count != 1) {
             throw new BussinessException("insert survey_paper count不等于1");
