@@ -27,6 +27,7 @@ public class SessionFilter implements Filter {
             response.sendRedirect(request.getContextPath() + "/login/");
             return;
         }
+        arg0.setAttribute("userInfo", user);
         chain.doFilter(arg0, arg1);
     }
 
