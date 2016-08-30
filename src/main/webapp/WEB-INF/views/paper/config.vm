@@ -13,7 +13,7 @@
         <div class="row-fluid">
             <div class="span5">
                 <div class="widget-box">
-                    <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
                         <h5>问卷信息</h5>
                     </div>
                     <div id="questionContainer" class="widget-content" style="height: 200px;">
@@ -27,13 +27,15 @@
                             <div class="control-group">
                                 <label class="control-label">开始时间</label>
                                 <div class="controls">
-                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format('yyyy-MM-dd',$!vo.startTime)</span>
+                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
+                                        'yyyy-MM-dd',$!vo.startTime)</span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">结束时间</label>
                                 <div class="controls">
-                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format('yyyy-MM-dd',$!vo.endTime)</span>
+                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
+                                        'yyyy-MM-dd',$!vo.endTime)</span>
                                 </div>
                             </div>
                         </form>
@@ -42,7 +44,7 @@
             </div>
             <div class="span7">
                 <div class="widget-box">
-                    <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
                         <h5>已选择试题</h5>
                     </div>
                     <div id="questionContainer" class="widget-content" style="max-height: 200px; overflow-y: auto">
@@ -54,30 +56,7 @@
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>了开始就关联商家端给谁看垃圾广告</td>
-                                    <td>
-                                        单选题
-                                    </td>
-                                    <td><a class="btn btn-danger">移除</a></td>
-                                </tr>
-                                <tr>
-                                    <td>了开始就关联商家端给谁看垃圾广告</td>
-                                    <td>
-                                        单选题
-                                    </td>
-                                    <td><a class="btn btn-danger">移除</a></td>
-                                </tr>
-                                <tr>
-                                    <td>了开始就关联商家端给谁看垃圾广告</td>
-                                    <td>
-                                        单选题
-                                    </td>
-                                    <td><a class="btn btn-danger">移除</a></td>
-                                </tr>
-
-                            </tbody>
+                            <tbody id="chooseTbody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -86,11 +65,14 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
-                    <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <div class="widget-title">
+                        <span class="icon">
+                            <i class="icon-info-sign"></i>
+                        </span>
                         <h5>试卷列表</h5>
                     </div>
                     <div class="widget-content">
-                        <table class="table table-bordered data-table">
+                        <table class="table table-bordered table-striped with-check">
                             <thead>
                             <tr>
                                 <th>标题</th>
@@ -98,11 +80,12 @@
                                 <th>选项</th>
                                 <th>修改时间</th>
                                 <th>创建时间</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody id="questionTbody">
                                 #foreach($!ques in $!questions)
-                                <tr>
+                                <tr data-id="$ques.id">
                                     <td>$!ques.title</td>
                                     <td>
                                         #if($!ques.mode == 1)
@@ -124,6 +107,7 @@
                                     </td>
                                     <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!ques.updateTime)</td>
                                     <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!ques.createTime)</td>
+                                    <td><a href="javascript:void(0)" class="btn btn-success chooseQuestion">选择</a></td>
                                 </tr>
                                 #end
                             </tbody>
@@ -135,6 +119,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/paper/paperAdd'], function () {
+    require(['scripts/paper/paperConfig'], function () {
     });
 </script>
