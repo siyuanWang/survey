@@ -213,4 +213,25 @@ public class PaperController {
         }
         return result;
     }
+
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public String show(@PathVariable(value = "id") Long id, Model model) {
+        String result = "";
+        SurveyPaperVo vo = new SurveyPaperVo();
+        List<SurveyQuestionVo> questionVos = new ArrayList<SurveyQuestionVo>();
+        try {
+            LOGGER.info("预览试卷,id = {}", id);
+            vo = paperService.queryById(id);
+            questionVos = paperService.queryByPaperId(id);
+        } catch (BussinessException e) {
+            LOGGER.error("查询问题失败:", e);
+        } catch (Exception e) {
+            LOGGER.error("查询问题服务不可用:", e);
+        }
+
+        model.addAttribute("paperVo", vo);
+        model.addAttribute("questionVos", questionVos);
+
+        return "paper/show";
+    }
 }

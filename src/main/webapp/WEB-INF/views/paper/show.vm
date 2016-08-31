@@ -1,0 +1,36 @@
+#set($layout="layout/empty.vm")
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matrix Admin</title><meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/bootstrap-responsive.min.css" />
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+    </style>
+</head>
+<body>
+<div id="paper">
+    <h2 style="text-align: center">$!paperVo.title</h2>
+    <div class="container-fluid">
+        #foreach($!ques in $questionVos)
+            <div class="row-fluid">
+                <div class="span12">
+                    <h5>$!ques.title</h5>
+
+                    $!ques.options
+                </div>
+            </div>
+        #end
+    </div>
+
+</div>
+
+<script src="/static/assets/js/jquery.min.js"></script>
+</body>
+
+</html>
