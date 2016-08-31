@@ -33,4 +33,12 @@
         select q.id,q.title,q.mode_type modeType,q.options,q.is_del isDel,q.create_time createTime,q.update_time updateTime
         from survey_paper_question r,survey_question q where r.question_id = q.id and r.paper_id = #{paperId}
     </select>
+
+    <insert id="savePaperQuestionRelation" parameterType="map">
+        insert into survey_paper_question (id,paper_id,question_id) values(#{id},#{paperId},#{questionId})
+    </insert>
+
+    <delete id="delPaperQuestionRelation" parameterType="long">
+        delete from survey_paper_question where paper_id = #{paperId}
+    </delete>
 </mapper>

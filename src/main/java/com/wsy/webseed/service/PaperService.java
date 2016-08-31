@@ -24,4 +24,6 @@ public interface PaperService {
 
     public List<SurveyQuestionVo> queryByPaperId(Long paperId);
 
+    public void config(Long paperId, String[] questionIds);
+
 }

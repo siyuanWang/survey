@@ -1,3 +1,4 @@
+#set($firstMenu=1)
 <div id="content">
     <!--breadcrumbs-->
     <div id="content-header">

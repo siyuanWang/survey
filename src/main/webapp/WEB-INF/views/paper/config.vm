@@ -1,3 +1,4 @@
+#set($firstMenu=1)
 <div id="content">
     <!--breadcrumbs-->
     <div id="content-header">
@@ -5,6 +6,12 @@
             <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
             <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷配置</a>
         </div>
+
+        <form action="" class="form-horizontal">
+            <div class="form-actions">
+                <a id="saveConfig" class="btn btn-danger" href="javascript:void(0)">保存配置</a>
+            </div>
+        </form>
     </div>
     <!--End-breadcrumbs-->
 
@@ -18,6 +25,7 @@
                     </div>
                     <div id="questionContainer" class="widget-content" style="height: 200px;">
                         <form class="form-horizontal">
+                            <input type="hidden" value="$!vo.id" id="paperId"/>
                             <div class="control-group">
                                 <label class="control-label">标题</label>
                                 <div class="controls">
@@ -48,15 +56,34 @@
                         <h5>已选择试题</h5>
                     </div>
                     <div id="questionContainer" class="widget-content" style="max-height: 200px; overflow-y: auto">
-                        <table class="table table-bordered data-table">
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <th>序号</th>
                                 <th>标题</th>
                                 <th>类型</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody id="chooseTbody"></tbody>
+                            <tbody id="chooseTbody">
+                                #foreach($!c in $!choosed)
+                                    <tr data-id="$!c.id">
+                                        <td>$!{velocityCount}</td>
+                                        <td>$!c.title</td>
+                                        <td>
+                                            #if($!c.modeType == 1)
+                                                单选题
+                                            #elseif($!c.modeType == 2)
+                                                多选题
+                                            #else
+                                                问答题
+                                            #end
+
+                                        </td>
+                                        <td><a class="btn btn-danger">移除</a></td>
+                                    </tr>
+                                #end
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -72,7 +99,7 @@
                         <h5>试卷列表</h5>
                     </div>
                     <div class="widget-content">
-                        <table class="table table-bordered table-striped with-check">
+                        <table class="table table-bordered data-table">
                             <thead>
                             <tr>
                                 <th>标题</th>
@@ -119,6 +146,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/paper/paperConfig'], function () {
+    require(['scripts/common/dataTable', 'scripts/paper/paperConfig'], function () {
     });
 </script>

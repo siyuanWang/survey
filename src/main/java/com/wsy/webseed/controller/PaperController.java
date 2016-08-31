@@ -53,6 +53,24 @@ public class PaperController {
         return result;
     }
 
+    @RequestMapping(value = "/config/{paperId}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String config(@PathVariable Long paperId, HttpServletRequest request, String questionIds) {
+        String result = "";
+        try {
+
+            paperService.config(paperId, questionIds.split(","));
+            result = Operation.result(Operation.successCode, "配置问卷成功");
+        } catch (BussinessException e) {
+            LOGGER.error("配置问卷失败: {}", e);
+            result = Operation.result(Operation.failCode, "配置问卷失败");
+        } catch (Exception e) {
+            LOGGER.error("配置问卷服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "配置问卷服务不可用");
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String toSavePage(String title, Model model) {
 
@@ -78,9 +96,11 @@ public class PaperController {
     public String toConfigPage(@PathVariable Long id, Model model) {
         SurveyPaperVo vo = new SurveyPaperVo();
         List<SurveyQuestionVo> questions = new ArrayList<SurveyQuestionVo>();
+        List<SurveyQuestionVo> choosed = new ArrayList<SurveyQuestionVo>();
         try {
             vo = paperService.queryById(id);
             questions = questionService.query(new HashMap<String, Object>());
+            choosed = paperService.queryByPaperId(id);
         } catch (BussinessException e) {
             LOGGER.error("查询问卷失败: {}", e);
         } catch (Exception e) {
@@ -88,10 +108,10 @@ public class PaperController {
         }
         model.addAttribute("paperId", id);
         model.addAttribute("questions", questions);
+        model.addAttribute("choosed", choosed);
         model.addAttribute("vo", vo);
         return "paper/config";
     }
-
 
 
     @RequestMapping(value = "/upd", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
@@ -166,23 +186,23 @@ public class PaperController {
 
         model.addAttribute("list", vos);
         model.addAttribute("title", title);
-        model.addAttribute("configMap",SurveyPaperVo.configMap);
-        model.addAttribute("publishMap",SurveyPaperVo.publishMap);
+        model.addAttribute("configMap", SurveyPaperVo.configMap);
+        model.addAttribute("publishMap", SurveyPaperVo.publishMap);
 
         return "paper/list";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String queryById(@PathVariable(value = "id")Long id) {
+    public String queryById(@PathVariable(value = "id") Long id) {
         String result = "";
         try {
             LOGGER.info("查询问卷详细,id = {}", id);
             SurveyPaperVo vo = paperService.queryById(id);
-            if(vo != null) {
-                result = Operation.result(Operation.successCode,JSON.toJSONString(vo, SerializerFeature.WriteNullStringAsEmpty));
+            if (vo != null) {
+                result = Operation.result(Operation.successCode, JSON.toJSONString(vo, SerializerFeature.WriteNullStringAsEmpty));
             } else {
-                result = Operation.result(Operation.successCode,JSON.toJSONString(new SurveyQuestionVo(), SerializerFeature.WriteNullStringAsEmpty));
+                result = Operation.result(Operation.successCode, JSON.toJSONString(new SurveyQuestionVo(), SerializerFeature.WriteNullStringAsEmpty));
             }
         } catch (BussinessException e) {
             LOGGER.error("查询问题失败:", e);

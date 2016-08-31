@@ -96,4 +96,23 @@ public class PaperServiceImpl implements PaperService {
     public List<SurveyQuestionVo> queryByPaperId(Long paperId) {
         return paperMapper.queryByPaperId(paperId);
     }
+
+    @Override
+    @Transactional
+    public void config(Long paperId, String[] questionIds) {
+        //先删除试卷和试题的关系
+        paperMapper.delPaperQuestionRelation(paperId);
+        //在插入新的关系
+        for (String questionId: questionIds) {
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", baseMapper.getSeqSurveyPk());
+            param.put("paperId", paperId);
+            param.put("questionId", Long.parseLong(questionId));
+
+            int count = paperMapper.savePaperQuestionRelation(param);
+            if(count != 1) {
+                throw new BussinessException("insert survey_paper_question count不等于1");
+            }
+        }
+    }
 }
