@@ -16,6 +16,7 @@ public class SurveyPaper {
     private Date endTime;
     private Integer isPublish;
     private Integer isDel;
+    private String describe;
     private Date createTime;
     private Date updateTime;
 
@@ -81,5 +82,13 @@ public class SurveyPaper {
 
     public void setIsDel(Integer isDel) {
         this.isDel = isDel;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }

@@ -5,11 +5,13 @@ define(['jquery','response-common'], function ($, rc) {
         var startTime = $("#startTime").val();
         var endTime = $("#endTime").val();
         var id = $("#paperId").val();
+        var describe = $("#describe").val();
         var paperObj = {
             id: id,
             title: title,
             startTime: startTime,
-            endTime: endTime
+            endTime: endTime,
+            describe: describe
         };
         updPaperAjax(paperObj, function(data) {
             if(rc.response(data)) {

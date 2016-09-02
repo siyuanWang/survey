@@ -23,6 +23,12 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                <label class="control-label">问卷描述</label>
+                                <div class="controls">
+                                    <textarea type="text" name="describe" id="describe" style="width: 400px;" rows="3">$!vo.describe</textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label">开始时间</label>
                                 <div class="controls">
                                     <input type="text" id="startTime" name="startTime" value="$!dateTool.format('yyyy-MM-dd',$!vo.startTime)">

@@ -4,11 +4,14 @@ define(['jquery','response-common'], function ($, rc) {
         var title = $("#title").val();
         var startTime = $("#startTime").val();
         var endTime = $("#endTime").val();
+        var describe = $("#describe").val();
         var paperObj = {
             title: title,
+            describe: describe,
             startTime: startTime,
             endTime: endTime
         };
+
         savePaperAjax(paperObj, function(data) {
             if(rc.response(data)) {
                 location.href = "/paper/list";

@@ -39,6 +39,8 @@
                             $!dateTool.format('yyyy-MM-dd',$!paperVo.startTime)
                             至 $!dateTool.format('yyyy-MM-dd',$!paperVo.endTime)
                         </h5>
+                        <div>$!paperVo.describe</div>
+                        <hr>
                         <input type="hidden" id="paperId" value="$!paperVo.id">
                     </span>
                 </div>
