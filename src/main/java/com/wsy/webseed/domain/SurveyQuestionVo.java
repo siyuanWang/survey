@@ -3,6 +3,7 @@ package com.wsy.webseed.domain;
 import com.wsy.webseed.domain.entity.SurveyQuestion;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by wangsiyuan1 on 2016/8/15.
@@ -10,4 +11,14 @@ import java.io.Serializable;
 public class SurveyQuestionVo extends SurveyQuestion implements Serializable{
     public static final int IS_DEL = 1;
     public static final int IS_NOT_DEL = 0;
+
+    private List<String> optionStrs;
+
+    public List<String> getOptionStrs() {
+        return optionStrs;
+    }
+
+    public void setOptionStrs(List<String> optionStrs) {
+        this.optionStrs = optionStrs;
+    }
 }

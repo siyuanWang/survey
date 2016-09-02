@@ -35,7 +35,7 @@
                     <tbody id="questionTbody">
                         #foreach($!vo in $!list)
                         <tr>
-                            <td>$!vo.title</td>
+                            <td style="max-width: 200px;">$!vo.title</td>
                             <td>
                                 #if($!vo.modeType == 1)
                                     单选题
@@ -46,19 +46,21 @@
                                 #end
 
                             </td>
-                            <td>
+                            <td style="max-width: 200px;">
                                 #if($!vo.modeType == 3)
                                     --
                                 #else
-                                    $!vo.options
+                                    #foreach($option in $!vo.optionStrs)
+                                        $option &nbsp;
+                                    #end
                                 #end
 
                             </td>
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.createTime)</td>
                             <td>
-                                <a href="javascript:void(0)" class="upd" data-id="$!vo.id">修改</a>
-                                <a href="javascript:void(0)" class="del" data-id="$!vo.id">删除</a>
+                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="修改" class="icon-edit upd"></i></a>&nbsp;
+                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="删除" class="icon-trash del"></i></a>
                             </td>
                         </tr>
                         #end

@@ -4,10 +4,10 @@ define(['jquery', 'response-common'], function ($, rc) {
         var target = e.target;
         var $target = $(target);
         switch (target.className) {
-            case "upd":
+            case "icon-edit upd":
                 location.href = "/paper/upd/" + $target.data("id");
                 break;
-            case "del":
+            case "icon-trash del":
                 if (confirm("确认删除?")) {
                     var id = $target.data("id");
                     delQuestionAjax(id, function (data) {
@@ -17,7 +17,7 @@ define(['jquery', 'response-common'], function ($, rc) {
                     })
                 }
                 break;
-            case "publish":
+            case "icon-upload-alt publish":
                 if (confirm("确认发布?")) {
                     var id = $target.data("id");
                     publishQuestionAjax(id, function (data) {

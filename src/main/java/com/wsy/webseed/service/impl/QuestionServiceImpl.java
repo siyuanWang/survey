@@ -1,14 +1,18 @@
 package com.wsy.webseed.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.dao.QuestionMapper;
 import com.wsy.webseed.dao.base.BaseMapper;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.service.QuestionService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +51,20 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public List<SurveyQuestionVo> query(Map<String, Object> param) {
         param.put("idDel", SurveyQuestionVo.IS_NOT_DEL);
-        return questionMapper.query(param);
+        List<SurveyQuestionVo> list = questionMapper.query(param);
+        for(SurveyQuestionVo vo: list) {
+            List<String> optionStrs = new ArrayList<String>();
+            if(StringUtils.isNotBlank(vo.getOptions())) {
+                JSONArray array = JSON.parseArray(vo.getOptions());
+                for(int i = 0, length = array.size(); i < length; i++) {
+                    String optionStr = (String)array.get(i);
+                    optionStrs.add(optionStr);
+                    vo.setOptionStrs(optionStrs);
+                }
+            }
+        }
+
+        return list;
     }
 
     @Override
