@@ -7,4 +7,10 @@
         insert into SURVEY_STATISTICS (id,ip,email,insert_time,paper_id)
         values(#{id},#{ip},#{email},sysdate,#{paperId})
     </insert>
+
+    <select id="query" parameterType="map" resultType="com.wsy.webseed.domain.SurveyStatisticsVo">
+        select id,ip,email,insert_time insertTime,paper_id paperId from SURVEY_STATISTICS where 1=1
+        <if test="paperId != null">and paper_id = #{paperId}</if>
+        <if test="ip != null">and ip = #{ip}</if>
+    </select>
 </mapper>

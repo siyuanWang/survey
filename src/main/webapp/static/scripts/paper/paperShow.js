@@ -102,6 +102,8 @@ $(function() {
             submitAjax(surveyStatistics, surveyStatisticsQues, function(data) {
                 if(data.resultCode == 0) {
                     alert(data.result);
+                    $btn.text("提交问卷");
+                    $btn.removeAttr("disabled");
                 } else {
                     alert("提交成功,谢谢您的参与!");
                     location.href = "http://www.baidu.com";

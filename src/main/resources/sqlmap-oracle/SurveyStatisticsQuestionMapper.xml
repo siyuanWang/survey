@@ -7,4 +7,9 @@
         insert into SURVEY_STATISTICS_QUESTION (paper_id,question_id,answer,question_mode,statistics_id)
         values (#{paperId},#{questionId},#{answer},#{questionMode},#{statisticsId})
     </insert>
+
+    <select id="queryByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyStatisticsQuestionVo">
+        select paper_id paperId,question_id questionId,answer,question_mode questionMode,
+        statistics_id statisticsId from SURVEY_STATISTICS_QUESTION where statistics_id = #{statisticsId}
+    </select>
 </mapper>
