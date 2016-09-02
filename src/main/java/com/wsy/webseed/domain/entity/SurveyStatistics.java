@@ -7,11 +7,11 @@ import java.util.Date;
  */
 public class SurveyStatistics {
     private Long id;
-    private Long questionId;
-    private Integer optionOrder;
-    private Date createTime;
-    private Long surveyId;
     private String ip;
+    private String email;
+    private Date insertTime;
+    private Long paperId;
+
 
     public Long getId() {
         return id;
@@ -21,43 +21,35 @@ public class SurveyStatistics {
         this.id = id;
     }
 
-    public Long getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
-
-    public Integer getOptionOrder() {
-        return optionOrder;
-    }
-
-    public void setOptionOrder(Integer optionOrder) {
-        this.optionOrder = optionOrder;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getSurveyId() {
-        return surveyId;
-    }
-
-    public void setSurveyId(Long surveyId) {
-        this.surveyId = surveyId;
-    }
-
     public String getIp() {
         return ip;
     }
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getInsertTime() {
+        return insertTime;
+    }
+
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public Long getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(Long paperId) {
+        this.paperId = paperId;
     }
 }

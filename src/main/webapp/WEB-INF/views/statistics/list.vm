@@ -1,0 +1,68 @@
+#set($firstMenu=1)
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/index/" title="首页" class="tip-bottom"><i class="icon-home"></i>首页</a>
+            <a href="/statistics/list" title="问卷统计分析" class="tip-bottom"><i class="icon-home"></i>问卷统计分析</a>
+        </div>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                <h5>题库列表</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered data-table">
+                    <thead>
+                    <tr>
+                        <th>问卷ID</th>
+                        <th>问卷标题</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="questionTbody">
+                        #foreach($!vo in $!list)
+                        <tr>
+                            <td style="max-width: 200px;">$!vo.title</td>
+                            <td>
+                                #if($!vo.modeType == 1)
+                                    单选题
+                                #elseif($!vo.modeType == 2)
+                                    多选题
+                                #else
+                                    问答题
+                                #end
+
+                            </td>
+                            <td style="max-width: 200px;">
+                                #if($!vo.modeType == 3)
+                                    --
+                                #else
+                                    #foreach($option in $!vo.optionStrs)
+                                        $option &nbsp;
+                                    #end
+                                #end
+
+                            </td>
+                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
+                            <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.createTime)</td>
+                            <td>
+                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="修改" class="icon-edit upd"></i></a>&nbsp;
+                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="删除" class="icon-trash del"></i></a>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['scripts/question/questionList','scripts/common/dataTable'], function () {
+    });
+</script>
