@@ -106,7 +106,7 @@ $(function() {
                     $btn.removeAttr("disabled");
                 } else {
                     alert("提交成功,谢谢您的参与!");
-                    location.href = "http://www.baidu.com";
+                    location.href = "http://www.investchaoyang.gov.cn";
                 }
             });
         }

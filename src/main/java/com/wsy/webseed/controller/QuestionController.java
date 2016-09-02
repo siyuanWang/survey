@@ -48,6 +48,12 @@ public class QuestionController {
         return result;
     }
 
+    @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
+    public String copy(@PathVariable Long id, Model model) {
+        model.addAttribute("copyId", id);
+        return "question/add";
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String toSavePage(String title, Model model) {
 

@@ -9,6 +9,7 @@ import java.util.Map;
 public class StatisticsVo {
     private List<SurveyStatisticsVo> surveyStatisticsVos;
     private Map<String, List<SurveyQuestionVo>> map;
+    private List<SurveyQuestionVo> questionVos;
 
     public List<SurveyStatisticsVo> getSurveyStatisticsVos() {
         return surveyStatisticsVos;
@@ -24,5 +25,13 @@ public class StatisticsVo {
 
     public void setMap(Map<String, List<SurveyQuestionVo>> map) {
         this.map = map;
+    }
+
+    public List<SurveyQuestionVo> getQuestionVos() {
+        return questionVos;
+    }
+
+    public void setQuestionVos(List<SurveyQuestionVo> questionVos) {
+        this.questionVos = questionVos;
     }
 }

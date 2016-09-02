@@ -2,7 +2,6 @@ package com.wsy.webseed.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.domain.StatisticsVo;
 import com.wsy.webseed.domain.SurveyPaperVo;
@@ -22,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +66,7 @@ public class StatisticsController {
             list = new ArrayList<SurveyStatisticsVo>();
         }
         model.addAttribute("userStatistics", list);
+        model.addAttribute("paperId", paperId);
         return "statistics/paperStatistics";
     }
 
@@ -74,7 +78,7 @@ public class StatisticsController {
             vo = surveyStatisticsService.queryStatisticsByPaperId(paperId);
             LOGGER.info(JSON.toJSONString(vo, SerializerFeature.WriteMapNullValue));
         } catch (Exception e) {
-            LOGGER.error("获取统计异常,paperId="+paperId);
+            LOGGER.error("获取统计异常,paperId:{}",paperId,e);
             vo = new StatisticsVo();
         }
 
@@ -103,5 +107,49 @@ public class StatisticsController {
         }
 
         return result;
+    }
+
+    @RequestMapping(value = "/export/{paperId}")
+    public void exportStatistics(HttpServletRequest request, HttpServletResponse response, @PathVariable Long paperId) {
+
+        try {
+
+            response.setContentType("application/octet-stream;charset=GB2312");
+            OutputStream fOut = null;
+            try {
+
+                String content = surveyStatisticsService.createCsvFile(paperId);
+
+                final String userAgent = request.getHeader("USER-AGENT");
+                String finalFileName = null;
+                String filename = "统计报表"+paperId;
+                if(StringUtils.contains(userAgent, "MSIE")){//IE浏览器
+                    finalFileName = URLEncoder.encode(filename, "UTF8");
+                }else if(StringUtils.contains(userAgent, "Mozilla")){//google,火狐浏览器
+                    finalFileName = new String(filename.getBytes(), "ISO8859-1");
+                }else{
+                    finalFileName = URLEncoder.encode(filename, "UTF8");//其他浏览器
+                }
+                response.setHeader("Content-Disposition","attachment; filename=" + finalFileName + ".csv");
+                //将数据插入的execl表格中
+                fOut = response.getOutputStream();
+                if(fOut!=null)
+                    fOut.write(content.getBytes("GBK"));
+            } catch (Exception e) {
+                LOGGER.error("导出统计文件错误,paperId:{}", paperId, e);
+            } finally{
+                //关闭输出文件流
+                try{
+                    if(fOut!=null){
+                        fOut.flush();
+                        fOut.close();
+                    }
+                }catch (IOException e){
+                    LOGGER.error("colse io is error",e);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("导出统计文件错误,paperId:{}",paperId,e);
+        }
     }
 }

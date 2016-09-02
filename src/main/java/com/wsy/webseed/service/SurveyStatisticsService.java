@@ -14,4 +14,6 @@ public interface SurveyStatisticsService {
     public StatisticsVo queryStatisticsByPaperId(Long paperId);
 
     public List<SurveyStatisticsVo> queryStatisticsVoByPaperId(Long paperId);
+
+    public String createCsvFile(Long paperId);
 }

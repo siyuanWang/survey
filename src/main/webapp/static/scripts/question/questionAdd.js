@@ -5,6 +5,7 @@ define(['jquery', 'response-common'], function ($, rc) {
     var $plus = $('<a class="btn btn-default" data-operator="plus"><i class="icon-plus" data-operator="plus"></i></a>');
     var $reduce = $('<a class="btn btn-default" data-operator="reduce"><i class="icon-minus" data-operator="reduce"></i></a>');
     var maxOptionNumber = 10;
+    var copyId = $("#copyId").val();
 
     $("#questionContainer").click(function (e) {
         var target = e.target;
@@ -111,4 +112,42 @@ define(['jquery', 'response-common'], function ($, rc) {
             }
         }
     })
+
+    if(copyId) {
+        queryQuestionById(copyId, function (data) {
+            if (data.resultCode == 1) {
+                console.log("merge data:" + data.result);
+                $(".option").remove();
+                var obj = JSON.parse(data.result);
+                mergeQuestionData(obj);
+            }
+        })
+    }
+
+    function queryQuestionById(id, callback) {
+        $.ajax({
+            type: "get",
+            url: "/question/" + id,
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                callback(data);
+            }
+        })
+    }
+
+    /**
+     * 初始化修改的表单数据
+     * @param questionObj
+     */
+    function mergeQuestionData(questionObj) {
+        if (questionObj) {
+            $("#title").val(questionObj.title);
+            $("#mode").val(questionObj.modeType);
+            var options = JSON.parse(questionObj.options)
+            $.each(options, function (index, data) {
+                addOption(data);
+            })
+        }
+    }
 });

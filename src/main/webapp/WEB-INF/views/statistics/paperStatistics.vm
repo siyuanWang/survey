@@ -6,11 +6,18 @@
             <a href="/index/" title="首页" class="tip-bottom"><i class="icon-home"></i>首页</a>
             <a href="/statistics/list" title="问卷统计分析" class="tip-bottom"><i class="icon-home"></i>问卷统计分析</a>
         </div>
+        <form action="" class="form-horizontal">
+            <div class="form-actions">
+                <a href="/statistics/export/$!paperId" target="_blank" class="btn btn-success">导出统计文件</a>
+            </div>
+        </form>
+
     </div>
     <!--End-breadcrumbs-->
 
     <!--Action boxes-->
     <div class="container-fluid">
+        <input type="hidden" value="$!paperId" id="paperId">
         <div class="widget-box">
             <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
                 <h5>参与用户</h5>
@@ -52,10 +59,6 @@
                     </thead>
                     <tbody id="questionStatisticsContainer">
 
-                    <tr>
-
-                    </tr>
-
                     </tbody>
                 </table>
             </div>
@@ -63,6 +66,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['scripts/common/dataTable'], function () {
+    require(['scripts/common/dataTable', 'scripts/statistics/statistics'], function () {
     });
 </script>

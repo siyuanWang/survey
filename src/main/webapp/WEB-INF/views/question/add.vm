@@ -16,6 +16,7 @@
                     </div>
                     <div id="questionContainer" class="widget-content">
                         <form class="form-horizontal">
+                            <input type="hidden" id="copyId" name="copy" value="$!copyId">
                             <div class="control-group">
                                 <label class="control-label">题干</label>
                                 <div class="controls">

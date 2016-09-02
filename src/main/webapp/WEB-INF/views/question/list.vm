@@ -60,7 +60,8 @@
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.createTime)</td>
                             <td>
                                 <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="修改" class="icon-edit upd"></i></a>&nbsp;
-                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="删除" class="icon-trash del"></i></a>
+                                <a href="javascript:void(0)" style="font-size: 14px;"><i data-id="$!vo.id" title="删除" class="icon-trash del"></i></a>&nbsp;
+                                <a href="/question/copy/$!vo.id" style="font-size: 14px;"><i data-id="$!vo.id" title="拷贝新建" class="icon-copy"></i></a>
                             </td>
                         </tr>
                         #end

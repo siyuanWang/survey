@@ -12,7 +12,7 @@
     <!--Action boxes-->
     <div class="container-fluid">
         <div class="widget-box">
-            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
                 <h5>题库列表</h5>
             </div>
             <div class="widget-content nopadding">
