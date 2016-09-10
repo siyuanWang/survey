@@ -115,9 +115,9 @@
                                 <tr data-id="$ques.id">
                                     <td>$!ques.title</td>
                                     <td>
-                                        #if($!ques.mode == 1)
+                                        #if($!ques.modeType == 1)
                                             单选题
-                                        #elseif($!ques.mode == 2)
+                                        #elseif($!ques.modeType == 2)
                                             多选题
                                         #else
                                             问答题

@@ -48,7 +48,7 @@ define(['jquery', 'response-common'], function ($, rc) {
                 var options = JSON.parse(ques.answer);
                 var a = "";
                 $.each(options, function(index, o) {
-                    a += answerArray[o] + ",";
+                    a += answerArray[o-1] + ",";
                 });
                 array.push(a.substring(0, a.length - 1));
             } else {
