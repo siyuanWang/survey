@@ -1,13 +1,13 @@
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> 菜单</a>
+<div id="sidebar">
     <ul>
-        <li class="submenu #if($firstMenu == 1)active open#end"> <a href="#"><i class="icon icon-th-list"></i> <span>问卷管理</span> <span class="label label-important">2</span></a>
+        <li class="submenu #if($firstMenu == 1)active open#end"> <a href="#"><i class="icon icon-th-list"></i> <span>问卷管理</span></a>
             <ul>
                 <li><a href="/question/list">题库管理</a></li>
                 <li><a href="/paper/list">问卷管理</a></li>
             </ul>
         </li>
-        <li class="submenu #if($firstMenu == 2)active open#end"> <a href="#"><i class="icon icon-th-list"></i> <span>统计分析</span> <span class="label label-important">1</span></a>
+        <li class="submenu #if($firstMenu == 2)active open#end"> <a href="#"><i class="icon icon-th-list"></i> <span>统计分析</span></a>
             <ul>
                 <li><a href="/statistics/list">问卷统计</a></li>
             </ul>
