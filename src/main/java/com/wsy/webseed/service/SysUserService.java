@@ -7,4 +7,6 @@ import com.wsy.webseed.domain.SysUserVo;
  */
 public interface SysUserService {
     public SysUserVo login(String pin, String password);
+
+    public boolean updatePassword(String pin, String origin, String newPass, String confirmPass);
 }

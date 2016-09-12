@@ -104,11 +104,15 @@ public class SurveyStatisticsServiceImpl implements SurveyStatisticsService {
         }
 
         List<SurveyQuestionVo> questionVos = new ArrayList<SurveyQuestionVo>();
+        List<SurveyQuestionVo> wendas = new ArrayList<SurveyQuestionVo>();
         //循环每个试题
         for (String key : map.keySet()) {
             List<SurveyQuestionVo> list = map.get(key);
             SurveyQuestionVo ques = list.get(0);
-            if (ques.getModeType() == SurveyQuestionVo.WEN_DA) continue;
+            if (ques.getModeType() == SurveyQuestionVo.WEN_DA) {
+                wendas.addAll(list);
+                continue;
+            }
             JSONArray array = JSON.parseArray(ques.getOptions());
             List<OptionVo> optionVos = new ArrayList<OptionVo>();
             for (int i = 0, length = array.size(); i < length; i++) {
@@ -138,6 +142,7 @@ public class SurveyStatisticsServiceImpl implements SurveyStatisticsService {
         returnVo.setQuestionVos(questionVos);
         returnVo.setMap(map);
         returnVo.setSurveyStatisticsVos(data);
+        returnVo.setWendas(wendas);
 
         return returnVo;
     }
@@ -171,6 +176,15 @@ public class SurveyStatisticsServiceImpl implements SurveyStatisticsService {
                 }
             }
 
+        }
+        for (SurveyQuestionVo vo : statisticsVo.getWendas()) {
+            sb.append(paperId).append(",");
+            sb.append(vo.getId()).append(",");
+            sb.append(vo.getTitle()).append(",");
+            sb.append(SurveyQuestionVo.modeMap.get(vo.getModeType())).append(",");
+            sb.append("-").append(",");
+            sb.append(JSON.parseArray(vo.getAnswer()).get(0)).append(",");
+            sb.append("-").append(",").append("\t\r");
         }
 
         return sb.toString();

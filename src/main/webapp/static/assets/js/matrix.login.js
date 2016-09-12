@@ -49,10 +49,12 @@ $(document).ready(function(){
         dataType: "json",
         onSuccess: function (data) {
             var obj = JSON.parse(data);
+            console.log(obj)
             if(obj.resultCode == 1) {
                 location.href = "/index/";
             } else {
-                alert(obj.resultMsg)
+
+                alert(obj.result)
             }
         },
         onErrors: function (data) {

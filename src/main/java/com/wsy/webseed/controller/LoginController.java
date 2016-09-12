@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/login")
@@ -28,18 +27,13 @@ public class LoginController {
         return "login/login";
     }
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index() {
-        return "index";
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String login(HttpServletRequest request, String loginName, String password) {
         String result = "";
         try {
             SysUserVo vo = sysUserService.login(loginName, password);
-            if(vo != null) {
+            if (vo != null) {
                 LOGGER.info("{} 登录成功", loginName);
                 result = Operation.result(Operation.successCode, "登录成功");
                 request.getSession().setAttribute(SysConstant.SESSION_USER_KEY, vo);
@@ -53,21 +47,4 @@ public class LoginController {
         }
         return result;
     }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String logout(HttpServletRequest request) {
-        String result = Operation.result(Operation.failCode, "注销失败");
-        try {
-            HttpSession session = request.getSession();
-            session.invalidate();
-            result = Operation.result(Operation.successCode, "注销成功");
-            LOGGER.debug("user logout sucess");
-            request.getSession().setAttribute(SysConstant.SESSION_USER_KEY, null);
-        } catch (Exception e) {
-            LOGGER.error("logout服务不可用:{}",e);
-        }
-        return result;
-    }
-
 }

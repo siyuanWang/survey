@@ -20,4 +20,6 @@ public interface SysUserMapper extends ISqlMapper {
      * @return
      */
     public int save(SysUserVo sysUser);
+
+    public int updPassword(Map<String,Object> password);
 }

@@ -10,6 +10,7 @@ public class StatisticsVo {
     private List<SurveyStatisticsVo> surveyStatisticsVos;
     private Map<String, List<SurveyQuestionVo>> map;
     private List<SurveyQuestionVo> questionVos;
+    private List<SurveyQuestionVo> wendas;//问答试题集合
 
     public List<SurveyStatisticsVo> getSurveyStatisticsVos() {
         return surveyStatisticsVos;
@@ -33,5 +34,13 @@ public class StatisticsVo {
 
     public void setQuestionVos(List<SurveyQuestionVo> questionVos) {
         this.questionVos = questionVos;
+    }
+
+    public List<SurveyQuestionVo> getWendas() {
+        return wendas;
+    }
+
+    public void setWendas(List<SurveyQuestionVo> wendas) {
+        this.wendas = wendas;
     }
 }

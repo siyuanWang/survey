@@ -27,4 +27,8 @@
         order by create_time
     </select>
 
+    <update id="updPassword" parameterType="map">
+        update sys_user set password = #{password} where login_name = #{pin}
+    </update>
+
 </mapper>
