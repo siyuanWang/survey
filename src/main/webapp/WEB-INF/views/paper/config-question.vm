@@ -4,7 +4,7 @@
     <div id="content-header">
         <div id="breadcrumb">
             <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
-            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷配置</a>
+            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷试题配置</a>
         </div>
 
         <form action="" class="form-horizontal">
@@ -18,62 +18,66 @@
     <!--Action boxes-->
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span5">
+            <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
                         <h5>问卷信息</h5>
                     </div>
                     <div id="questionContainer" class="widget-content" style="height: 200px;">
                         <form class="form-horizontal">
-                            <input type="hidden" value="$!vo.id" id="paperId"/>
+                            <input type="hidden" value="$!paper.id" id="paperId"/>
                             <div class="control-group">
                                 <label class="control-label">标题</label>
                                 <div class="controls">
-                                    <strong style="padding-top: 4px;display: inline-block;">$!vo.title</strong>
+                                    <strong style="padding-top: 4px;display: inline-block;">$!paper.title</strong>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">开始时间</label>
                                 <div class="controls">
                                     <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
-                                        'yyyy-MM-dd',$!vo.startTime)</span>
+                                        'yyyy-MM-dd',$!paper.startTime)</span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">结束时间</label>
                                 <div class="controls">
                                     <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
-                                        'yyyy-MM-dd',$!vo.endTime)</span>
+                                        'yyyy-MM-dd',$!paper.endTime)</span>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="span7">
-                <div class="widget-box">
-                    <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
-                        <h5>已选择试题</h5>
-                    </div>
-                    <div id="questionContainer" class="widget-content" style="max-height: 200px; overflow-y: auto">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>标题</th>
-                                <th>类型</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody id="chooseTbody">
-                                #foreach($!c in $!choosed)
-                                    <tr data-id="$!c.id">
+        </div>
+
+        #foreach($!module in $!paper.modules)
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget-box paperModule" data-moduleid="$!module.id" data-modulename="$!module.name">
+                        <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
+                            <h5><strong>$!module.name</strong>已选择试题</h5>
+                        </div>
+                        <div id="questionContainer$!module.id" data-moduleid="$!module.id" class="widget-content" style="max-height: 200px; overflow-y: auto">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 25%;">序号</th>
+                                    <th style="width: 35%;">标题</th>
+                                    <th style="width: 25%;">类型</th>
+                                    <th style="width: 15%;">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($!ques in $!module.questions)
+                                    <tr data-id="$!ques.id">
                                         <td>$!{velocityCount}</td>
-                                        <td>$!c.title</td>
+                                        <td>$!ques.title</td>
                                         <td>
-                                            #if($!c.modeType == 1)
+                                            #if($!ques.modeType == 1)
                                                 单选题
-                                            #elseif($!c.modeType == 2)
+                                            #elseif($!ques.modeType == 2)
                                                 多选题
                                             #else
                                                 问答题
@@ -82,13 +86,14 @@
                                         </td>
                                         <td><a class="btn btn-danger">移除</a></td>
                                     </tr>
-                                #end
-                            </tbody>
-                        </table>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        #end
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
@@ -134,7 +139,18 @@
                                     </td>
                                     <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!ques.updateTime)</td>
                                     <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!ques.createTime)</td>
-                                    <td><a href="javascript:void(0)" class="btn btn-success chooseQuestion">选择</a></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">选择<span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                #foreach($!module in $!paper.modules)
+                                                    <li><a class="chooseQues" href="javascript:void(0)" data-moduleid="$!module.id">
+                                                        $!module.name</a>
+                                                    </li>
+                                                #end
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                                 #end
                             </tbody>

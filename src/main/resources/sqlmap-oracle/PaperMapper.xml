@@ -30,16 +30,21 @@
         from survey_paper where id = #{id}
     </select>
 
-    <select id="queryByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
-        select q.id,q.title,q.mode_type modeType,q.options,q.is_del isDel,q.create_time createTime,q.update_time updateTime
-        from survey_paper_question r,survey_question q where r.question_id = q.id and r.paper_id = #{paperId}
+    <select id="queryModulesByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyPaperModuleVo">
+        select r.id,r.name,r.module_index moduleIndex,r.paper_id paperId
+        from survey_paper_module r,survey_paper p where r.paper_id = p.id and p.id = #{paperId} order by r.module_index
     </select>
 
-    <insert id="savePaperQuestionRelation" parameterType="map">
-        insert into survey_paper_question (id,paper_id,question_id) values(#{id},#{paperId},#{questionId})
-    </insert>
+    <select id="queryQuestionsByModuleId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
+        select sq.id,sq.title,sq.mode_type modeType,sq.options,sq.is_del isDel,
+        sq.update_time updateTime,sq.create_time createTime
+        from survey_question sq,survey_paper_module_question r where r.question_id = sq.id and r.module_id = #{moduleId}
+    </select>
 
-    <delete id="delPaperQuestionRelation" parameterType="long">
-        delete from survey_paper_question where paper_id = #{paperId}
-    </delete>
+    <select id="queryQuestionsByPaperId" parameterType="long" resultType="com.wsy.webseed.domain.SurveyQuestionVo">
+        select sq.id,sq.title,sq.mode_type modeType,sq.options,sq.is_del isDel,
+        sq.update_time updateTime,sq.create_time createTime
+        from survey_question sq,survey_paper_module_question r,survey_paper p,survey_paper_module pm
+        where sq.id = r.question_id and r.module_id = pm.id and pm.paper_id = p.id and p.id = #{paperId}
+    </select>
 </mapper>

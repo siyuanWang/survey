@@ -1,6 +1,7 @@
 package com.wsy.webseed.dao;
 
 import com.wsy.webseed.dao.base.ISqlMapper;
+import com.wsy.webseed.domain.SurveyPaperModuleVo;
 import com.wsy.webseed.domain.SurveyPaperVo;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.domain.entity.SurveyQuestion;
@@ -19,9 +20,9 @@ public interface PaperMapper extends ISqlMapper {
 
     public SurveyPaperVo queryById(Long id);
 
-    public List<SurveyQuestionVo> queryByPaperId(Long paperId);
+    public List<SurveyPaperModuleVo> queryModulesByPaperId(Long paperId);
 
-    public int savePaperQuestionRelation(Map<String, Object> param);
+    public List<SurveyQuestionVo> queryQuestionsByModuleId(Long moduleId);
 
-    public int delPaperQuestionRelation(Long paperId);
+    public List<SurveyQuestionVo> queryQuestionsByPaperId(Long paperId);
 }

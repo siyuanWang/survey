@@ -1,0 +1,127 @@
+#set($firstMenu=1)
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷模块配置</a>
+        </div>
+
+        <form action="" class="form-horizontal">
+            <div class="form-actions">
+                <a id="saveConfig" class="btn btn-danger" href="javascript:void(0)">保存配置</a>
+            </div>
+        </form>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>问卷信息</h5>
+                    </div>
+                    <div id="questionContainer" class="widget-content" style="height: 200px;">
+                        <form class="form-horizontal">
+                            <input type="hidden" value="$!paper.id" id="paperId"/>
+                            <div class="control-group">
+                                <label class="control-label">标题</label>
+                                <div class="controls">
+                                    <strong style="padding-top: 4px;display: inline-block;">$!paper.title</strong>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">开始时间</label>
+                                <div class="controls">
+                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
+                                        'yyyy-MM-dd',$!paper.startTime)</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">结束时间</label>
+                                <div class="controls">
+                                    <span style="padding-top: 4px;display: inline-block;">$!dateTool.format(
+                                        'yyyy-MM-dd',$!paper.endTime)</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon">
+                            <i class="icon-info-sign"></i>
+                        </span>
+                        <h5>新增模块</h5>
+                    </div>
+                    <div class="widget-content">
+                        <form action="" class="form-horizontal">
+                            <div class="form-actions">
+                                模块名称:<input type="text" id="moduleName" style="width: 150px;">
+                                模块序号:
+                                <select style="width: 150px;" id="moduleIndex">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                <a id="saveModule" class="btn btn-success" href="javascript:void(0)">新增模块</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon">
+                            <i class="icon-info-sign"></i>
+                        </span>
+                        <h5>模块列表</h5>
+                    </div>
+                    <div class="widget-content">
+                        <table class="table table-bordered data-table">
+                            <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>模块序号</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="questionTbody">
+                                #foreach($!module in $!paper.modules)
+                                <tr data-id="$module.id">
+                                    <td>$!module.name</td>
+                                    <td>
+                                        $!module.moduleIndex
+                                    </td>
+                                    <td><a href="javascript:void(0)" class="btn btn-danger delModule">删除</a></td>
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['scripts/common/dataTable', 'scripts/paper/paper-module-config'], function () {
+    });
+</script>

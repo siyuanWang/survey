@@ -14,18 +14,28 @@ $(function() {
     }
 
     getQuestionDataAjax(paperId, function(data) {
-        var quesContainer = $("#questionContainer");
-        $.each(data, function(index, ques) {
-            if(ques.modeType == 1) {
-                addSingleOption(quesContainer, ques, index);
-            } else if(ques.modeType == 2) {
-                addManyOption(quesContainer, ques, index);
-            } else if(ques.modeType == 3) {
-                addEssayOption(quesContainer, ques, index);
-            }
+        console.log(data)
+        $.each(data.modules, function(index, module) {
+            addModule(module);
+            var quesContainer = $("#questionContainer");
+            $.each(module.questions, function(index, ques) {
+                if(ques.modeType == 1) {
+                    addSingleOption(quesContainer, ques, index);
+                } else if(ques.modeType == 2) {
+                    addManyOption(quesContainer, ques, index);
+                } else if(ques.modeType == 3) {
+                    addEssayOption(quesContainer, ques, index);
+                }
 
+            })
         })
+
     });
+
+    function addModule(module) {
+        $("#questionContainer").append("<h4>"+module.name+"</h4>");
+    }
+
     /**
      * 插入单选题
      */

@@ -3,8 +3,10 @@ package com.wsy.webseed.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.wsy.webseed.common.exception.BussinessException;
+import com.wsy.webseed.domain.SurveyPaperModuleVo;
 import com.wsy.webseed.domain.SurveyPaperVo;
 import com.wsy.webseed.domain.SurveyQuestionVo;
+import com.wsy.webseed.domain.entity.SurveyPaper;
 import com.wsy.webseed.service.PaperService;
 import com.wsy.webseed.service.QuestionService;
 import com.wsy.webseed.util.Operation;
@@ -53,13 +55,47 @@ public class PaperController {
         return result;
     }
 
-    @RequestMapping(value = "/config/{paperId}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/module/save", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String config(@PathVariable Long paperId, HttpServletRequest request, String questionIds) {
+    public String saveModule(SurveyPaperModuleVo vo) {
         String result = "";
         try {
+            paperService.saveModule(vo);
+            result = Operation.result(Operation.successCode, "新增问卷模块成功");
+        } catch (BussinessException e) {
+            LOGGER.error("新增问卷模块失败: {}", e);
+            result = Operation.result(Operation.failCode, "新增问卷模块失败");
+        } catch (Exception e) {
+            LOGGER.error("新增问卷模块服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "新增问卷模块服务不可用");
+        }
+        return result;
+    }
 
-            paperService.config(paperId, questionIds.split(","));
+    @RequestMapping(value = "/module/del/{moduleId}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String delModule(@PathVariable Long moduleId) {
+        String result = "";
+        try {
+            paperService.delModule(moduleId);
+            result = Operation.result(Operation.successCode, "删除问卷模块成功");
+        } catch (BussinessException e) {
+            LOGGER.error("删除问卷模块失败: {}", e);
+            result = Operation.result(Operation.failCode, "删除问卷模块失败");
+        } catch (Exception e) {
+            LOGGER.error("删除问卷模块服务不可用: {}", e);
+            result = Operation.result(Operation.failCode, "删除问卷模块服务不可用");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/config/{paperId}", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String config(@PathVariable Long paperId, String paperJson) {
+        String result = "";
+        try {
+            SurveyPaperVo paper = JSON.toJavaObject(JSON.parseObject(paperJson), SurveyPaperVo.class);
+            paperService.config(paper);
             result = Operation.result(Operation.successCode, "配置问卷成功");
         } catch (BussinessException e) {
             LOGGER.error("配置问卷失败: {}", e);
@@ -92,25 +128,40 @@ public class PaperController {
         return "paper/upd";
     }
 
-    @RequestMapping(value = "/config/{id}", method = RequestMethod.GET)
-    public String toConfigPage(@PathVariable Long id, Model model) {
-        SurveyPaperVo vo = new SurveyPaperVo();
-        List<SurveyQuestionVo> questions = new ArrayList<SurveyQuestionVo>();
-        List<SurveyQuestionVo> choosed = new ArrayList<SurveyQuestionVo>();
+    @RequestMapping(value = "/config/module/{id}", method = RequestMethod.GET)
+    public String toConfigModulePage(@PathVariable Long id, Model model) {
+        SurveyPaperVo paper = new SurveyPaperVo();
         try {
-            vo = paperService.queryById(id);
-            questions = questionService.query(new HashMap<String, Object>());
-            choosed = paperService.queryByPaperId(id);
+            paper = paperService.queryFullDataById(id);
         } catch (BussinessException e) {
             LOGGER.error("查询问卷失败: {}", e);
         } catch (Exception e) {
             LOGGER.error("查询问卷服务不可用: {}", e);
         }
-        model.addAttribute("paperId", id);
+
+        model.addAttribute("paper", paper);
+
+        return "paper/config-module";
+    }
+
+    @RequestMapping(value = "/config/question/{id}", method = RequestMethod.GET)
+    public String toConfigQuestionPage(@PathVariable Long id, Model model) {
+
+        SurveyPaperVo paper = new SurveyPaperVo();
+        List<SurveyQuestionVo> questions = new ArrayList<SurveyQuestionVo>();
+        try {
+            paper = paperService.queryFullDataById(id);
+            questions = questionService.query(new HashMap<String, Object>());
+        } catch (BussinessException e) {
+            LOGGER.error("查询问卷失败: {}", e);
+        } catch (Exception e) {
+            LOGGER.error("查询问卷服务不可用: {}", e);
+        }
+
+        model.addAttribute("paper", paper);
         model.addAttribute("questions", questions);
-        model.addAttribute("choosed", choosed);
-        model.addAttribute("vo", vo);
-        return "paper/config";
+
+        return "paper/config-question";
     }
 
 
@@ -220,8 +271,8 @@ public class PaperController {
         String result = Operation.result(Operation.failCode, "");
         try {
             LOGGER.info("预览试卷,id = {}", id);
-            List<SurveyQuestionVo> questionVos = paperService.queryByPaperId(id);
-            result = Operation.result(Operation.successCode, JSON.toJSONString(questionVos, SerializerFeature.WriteNullStringAsEmpty));
+            SurveyPaperVo paper = paperService.queryFullDataById(id);
+            result = Operation.result(Operation.successCode, JSON.toJSONString(paper, SerializerFeature.WriteNullStringAsEmpty));
         } catch (BussinessException e) {
             LOGGER.error("查询问题失败:", e);
         } catch (Exception e) {

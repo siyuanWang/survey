@@ -2,7 +2,9 @@ package com.wsy.webseed.service.impl;
 
 import com.wsy.webseed.common.exception.BussinessException;
 import com.wsy.webseed.dao.PaperMapper;
+import com.wsy.webseed.dao.PaperModuleMapper;
 import com.wsy.webseed.dao.base.BaseMapper;
+import com.wsy.webseed.domain.SurveyPaperModuleVo;
 import com.wsy.webseed.domain.SurveyPaperVo;
 import com.wsy.webseed.domain.SurveyQuestionVo;
 import com.wsy.webseed.service.PaperService;
@@ -23,9 +25,12 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     PaperMapper paperMapper;
 
-
     @Autowired
     BaseMapper baseMapper;
+
+    @Autowired
+    PaperModuleMapper paperModuleMapper;
+
 
     @Override
     @Transactional
@@ -34,8 +39,27 @@ public class PaperServiceImpl implements PaperService {
         paper.setId(baseMapper.getSeqSurveyPk());
         paper.setIsDel(SurveyPaperVo.IS_NOT_DEL);
         int count = paperMapper.save(paper);
-        if (count != 1) {
-            throw new BussinessException("insert survey_paper count不等于1");
+        if(count != 1) {
+            throw new BussinessException("save paper count =" + count);
+        }
+        for(SurveyPaperModuleVo vo : paper.getModules()) {
+            long moduleId = baseMapper.getSeqSurveyPk();
+            vo.setId(moduleId);
+            count = paperModuleMapper.save(vo);
+            if(count != 1) {
+                throw new BussinessException("save paper module count =" + count);
+            }
+            for(SurveyQuestionVo question: vo.getQuestions()) {
+                long id = baseMapper.getSeqSurveyPk();
+                Map<String, Object> param = new HashMap<String, Object>();
+                param.put("id", id);
+                param.put("questionId", question.getId());
+                param.put("moduleId", moduleId);
+                count = paperModuleMapper.saveModuleQuestionRelation(param);
+                if(count != 1) {
+                    throw new BussinessException("save module question count =" + count);
+                }
+            }
         }
     }
 
@@ -69,6 +93,19 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
+    public SurveyPaperVo queryFullDataById(Long id) {
+        SurveyPaperVo vo = queryById(id);
+        List<SurveyPaperModuleVo> modules = paperMapper.queryModulesByPaperId(id);
+        for(SurveyPaperModuleVo module: modules) {
+            List<SurveyQuestionVo> questions = paperMapper.queryQuestionsByModuleId(module.getId());
+            module.setQuestions(questions);
+        }
+        vo.setModules(modules);
+
+        return vo;
+    }
+
+    @Override
     @Transactional
     public void del(Long id) {
         SurveyPaperVo paper = new SurveyPaperVo();
@@ -94,25 +131,49 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public List<SurveyQuestionVo> queryByPaperId(Long paperId) {
-        return paperMapper.queryByPaperId(paperId);
+        return paperMapper.queryQuestionsByPaperId(paperId);
+    }
+
+    @Override
+    public List<SurveyPaperModuleVo> queryModuleByPaperId(Long paperId) {
+        return paperMapper.queryModulesByPaperId(paperId);
+    }
+
+    @Override
+    public List<SurveyQuestionVo> queryQuestionByModuleId(Long moduleId) {
+        return paperMapper.queryQuestionsByModuleId(moduleId);
     }
 
     @Override
     @Transactional
-    public void config(Long paperId, String[] questionIds) {
-        //先删除试卷和试题的关系
-        paperMapper.delPaperQuestionRelation(paperId);
-        //在插入新的关系
-        for (String questionId: questionIds) {
-            Map<String, Object> param = new HashMap<String, Object>();
-            param.put("id", baseMapper.getSeqSurveyPk());
-            param.put("paperId", paperId);
-            param.put("questionId", Long.parseLong(questionId));
+    public void config(SurveyPaperVo vo) {
+        //删除试卷和模块关系
+        for(SurveyPaperModuleVo module:vo.getModules()) {
+            paperModuleMapper.del(module.getPaperId());
+            paperModuleMapper.delModuleQuestionRelation(module.getId());
 
-            int count = paperMapper.savePaperQuestionRelation(param);
-            if(count != 1) {
-                throw new BussinessException("insert survey_paper_question count不等于1");
+            for(SurveyQuestionVo ques:module.getQuestions()) {
+                Map<String,Object> param = new HashMap<String, Object>();
+                param.put("id", baseMapper.getSeqSurveyPk());
+                param.put("moduleId", module.getId());
+                param.put("questionId", ques.getId());
+                paperModuleMapper.saveModuleQuestionRelation(param);
             }
         }
+    }
+
+    @Override
+    public void saveModule(SurveyPaperModuleVo vo) {
+        vo.setId(baseMapper.getSeqSurveyPk());
+        paperModuleMapper.save(vo);
+    }
+
+    @Override
+    public void delModule(Long moduleId) {
+        List<SurveyQuestionVo> questions = paperMapper.queryQuestionsByModuleId(moduleId);
+        if(questions.size() > 0) {
+            throw new BussinessException("请先删除模块下试题");
+        }
+        paperModuleMapper.del(moduleId);
     }
 }

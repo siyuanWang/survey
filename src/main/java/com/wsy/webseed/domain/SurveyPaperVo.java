@@ -4,6 +4,7 @@ import com.wsy.webseed.domain.entity.SurveyPaper;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +21,8 @@ public class SurveyPaperVo extends SurveyPaper implements Serializable{
 
     public static final int IS_CONFIG = 1;
     public static final int IS_NOT_CONFIG = 0;
+
+    private List<SurveyPaperModuleVo> modules;
 
     public static final Map<Integer, Object> configMap = new HashMap<Integer, Object>(){{
         put(IS_CONFIG,"已配置");
@@ -42,5 +45,13 @@ public class SurveyPaperVo extends SurveyPaper implements Serializable{
 
     public void setConfig(Integer config) {
         this.config = config;
+    }
+
+    public List<SurveyPaperModuleVo> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<SurveyPaperModuleVo> modules) {
+        this.modules = modules;
     }
 }

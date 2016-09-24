@@ -54,7 +54,9 @@
                             <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss',$!vo.updateTime)</td>
                             <td>
 
-                                <a href="/paper/config/$!vo.id" style="color:green;font-size: 14px;" title="配置"><i class="icon-cogs"></i></a>
+                                <a href="/paper/config/module/$!vo.id" style="color:red;font-size: 14px;" title="配置模块"><i class="icon-cog"></i></a>
+                                &nbsp;
+                                <a href="/paper/config/question/$!vo.id" style="color:green;font-size: 14px;" title="配置试题"><i class="icon-cogs"></i></a>
                                 &nbsp;
                                 <a href="/paper/show/$!vo.id" style="font-size: 14px;" title="预览"><i class="icon-eye-open"></i></a>
                                 &nbsp;
