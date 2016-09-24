@@ -42,25 +42,25 @@ public class PaperServiceImpl implements PaperService {
         if(count != 1) {
             throw new BussinessException("save paper count =" + count);
         }
-        for(SurveyPaperModuleVo vo : paper.getModules()) {
-            long moduleId = baseMapper.getSeqSurveyPk();
-            vo.setId(moduleId);
-            count = paperModuleMapper.save(vo);
-            if(count != 1) {
-                throw new BussinessException("save paper module count =" + count);
-            }
-            for(SurveyQuestionVo question: vo.getQuestions()) {
-                long id = baseMapper.getSeqSurveyPk();
-                Map<String, Object> param = new HashMap<String, Object>();
-                param.put("id", id);
-                param.put("questionId", question.getId());
-                param.put("moduleId", moduleId);
-                count = paperModuleMapper.saveModuleQuestionRelation(param);
-                if(count != 1) {
-                    throw new BussinessException("save module question count =" + count);
-                }
-            }
-        }
+//        for(SurveyPaperModuleVo vo : paper.getModules()) {
+//            long moduleId = baseMapper.getSeqSurveyPk();
+//            vo.setId(moduleId);
+//            count = paperModuleMapper.save(vo);
+//            if(count != 1) {
+//                throw new BussinessException("save paper module count =" + count);
+//            }
+//            for(SurveyQuestionVo question: vo.getQuestions()) {
+//                long id = baseMapper.getSeqSurveyPk();
+//                Map<String, Object> param = new HashMap<String, Object>();
+//                param.put("id", id);
+//                param.put("questionId", question.getId());
+//                param.put("moduleId", moduleId);
+//                count = paperModuleMapper.saveModuleQuestionRelation(param);
+//                if(count != 1) {
+//                    throw new BussinessException("save module question count =" + count);
+//                }
+//            }
+//        }
     }
 
     @Override

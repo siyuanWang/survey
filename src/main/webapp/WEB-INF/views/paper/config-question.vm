@@ -145,7 +145,7 @@
                                             <ul class="dropdown-menu">
                                                 #foreach($!module in $!paper.modules)
                                                     <li><a class="chooseQues" href="javascript:void(0)" data-moduleid="$!module.id">
-                                                        $!module.name</a>
+                                                        $!module.name &nbsp;</a>
                                                     </li>
                                                 #end
                                             </ul>

@@ -43,7 +43,8 @@ define(['jquery', 'response-common'], function ($, rc) {
         $.each(questions, function(index, ques) {
             var array = [];
             if(ques.modeType == 1) {
-                array.push(answerArray[JSON.parse(ques.answer)][0]);
+                var answerIndex = parseInt(JSON.parse(ques.answer)[0], 10);
+                array.push(answerArray[answerIndex - 1]);
             } else if(ques.modeType == 2) {
                 var options = JSON.parse(ques.answer);
                 var a = "";
