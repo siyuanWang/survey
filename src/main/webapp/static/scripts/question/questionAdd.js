@@ -1,6 +1,6 @@
 'use strict';
 define(['jquery', 'response-common'], function ($, rc) {
-    var $option = $('<div class="control-group option"><label class="control-label">选项1</label><div class="controls"><input type="text" name="option"> &nbsp;&nbsp; <a class="btn btn-default" data-operator="plus"> <i class="icon-plus" data-operator="plus"></i> </a> &nbsp;&nbsp; <a class="btn btn-default" data-operator="reduce"> <i class="icon-minus" data-operator="reduce"></i> </a> </div> </div>');
+    var $option = $('<div class="control-group option"><label class="control-label">选项1</label><div class="controls"><input type="text" name="option" style="width: 70%"> &nbsp;&nbsp; <a class="btn btn-default" data-operator="plus"> <i class="icon-plus" data-operator="plus"></i> </a> &nbsp;&nbsp; <a class="btn btn-default" data-operator="reduce"> <i class="icon-minus" data-operator="reduce"></i> </a> </div> </div>');
     var $optionsDiv = $("#options");
     var $plus = $('<a class="btn btn-default" data-operator="plus"><i class="icon-plus" data-operator="plus"></i></a>');
     var $reduce = $('<a class="btn btn-default" data-operator="reduce"><i class="icon-minus" data-operator="reduce"></i></a>');
