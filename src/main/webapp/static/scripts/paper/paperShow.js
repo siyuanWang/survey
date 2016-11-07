@@ -28,6 +28,10 @@ $(function() {
                 }
 
             })
+        });
+        var questionIndex = 0;
+        $("#questionContainer").find(".row-fluid").each(function(index) {
+            $(this).find(".span12").find("h5").find("span").html(++questionIndex);
         })
 
     });
@@ -44,7 +48,7 @@ $(function() {
         var rowFluid = $('<div class="row-fluid"></div>');
         var span12 = $(
             '<div class="span12" data-id="'+ques.id+'" data-mode="1">' +
-                '<h5>'+(index+1)+'、'+ques.title+'</h5>' +
+                '<h5><span>'+(index+1)+'</span>、'+ques.title+'</h5>' +
             '</div>'
         );
         for(var i = 0, length = options.length; i < length; i++) {
@@ -67,7 +71,7 @@ $(function() {
         var rowFluid = $('<div class="row-fluid"></div>');
         var span12 = $(
             '<div class="span12" data-id="'+ques.id+'" data-mode="2">' +
-                '<h5>'+(index+1)+'、'+ques.title+'</h5>' +
+                '<h5><span>'+(index+1)+'</span>、'+ques.title+'</h5>' +
             '</div>'
         );
         for(var i = 0, length = options.length; i < length; i++) {
@@ -93,7 +97,7 @@ $(function() {
         var rowFluid = $('<div class="row-fluid"></div>');
         var span12 = $(
             '<div class="span12" data-id="'+ques.id+'" data-mode="3">' +
-                '<h5>'+(index+1)+'、'+ques.title+'</h5>' +
+                '<h5><span>'+(index+1)+'</span>、'+ques.title+'</h5>' +
             '</div>'
         );
         span12.append("<label class='ques'><textarea name='ques+"+index+"module"+moduleId+"' style='min-width: 100%;max-width: 100%;'></textarea></label>")
