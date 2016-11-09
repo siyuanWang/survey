@@ -74,9 +74,39 @@
         <filter-name>SessionFilter</filter-name>
         <url-pattern>/question/*</url-pattern>
     </filter-mapping>
+        <!--
     <filter-mapping>
         <filter-name>SessionFilter</filter-name>
         <url-pattern>/paper/*</url-pattern>
+    </filter-mapping>
+        -->
+     <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/save</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/module/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/config/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/add</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/upd/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/del/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/paper/publish/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>SessionFilter</filter-name>
