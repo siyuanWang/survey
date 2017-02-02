@@ -55,6 +55,7 @@ $(document).ready(function(){
             } else {
 
                 alert(obj.result)
+                location.reload();
             }
         },
         onErrors: function (data) {
