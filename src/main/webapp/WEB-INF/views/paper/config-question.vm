@@ -3,8 +3,8 @@
     <!--breadcrumbs-->
     <div id="content-header">
         <div id="breadcrumb">
-            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
-            <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷试题配置</a>
+            <a href="/index/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+            <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 问卷试题配置</a>
         </div>
 
         <form action="" class="form-horizontal">
